@@ -1,0 +1,50 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const layers = [
+  { label: 'HARNESS', y: 20, dashed: true, opacity: 1 },
+  { label: 'ORCHESTRATION', y: 90, dashed: false, opacity: 0.6 },
+  { label: 'APPLICATION', y: 160, dashed: false, opacity: 0.4 },
+  { label: 'INFRASTRUCTURE', y: 230, dashed: false, opacity: 0.25 },
+];
+---
+<svg
+  viewBox="0 0 280 290"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+>
+  {layers.map((layer) => (
+    <g>
+      <rect
+        x="20"
+        y={layer.y}
+        width="240"
+        height="50"
+        rx="4"
+        stroke="currentColor"
+        stroke-width={layer.dashed ? 2 : 1}
+        stroke-dasharray={layer.dashed ? '6 4' : 'none'}
+        fill={layer.dashed ? 'var(--color-amber-dim)' : 'none'}
+        opacity={layer.opacity}
+      />
+      <text
+        x="140"
+        y={layer.y + 30}
+        text-anchor="middle"
+        fill="currentColor"
+        font-family="var(--font-mono)"
+        font-size="10"
+        letter-spacing="0.1em"
+        opacity={layer.opacity}
+      >
+        {layer.label}
+      </text>
+    </g>
+  ))}
+</svg>

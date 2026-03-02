@@ -1,0 +1,19 @@
+---
+interface Props {
+  tag?: string;
+  stagger?: boolean;
+  class?: string;
+}
+
+const { tag = 'div', stagger = false, class: className = '' } = Astro.props;
+const Tag = tag as any;
+---
+{stagger ? (
+  <Tag data-animate-stagger class={className}>
+    <slot />
+  </Tag>
+) : (
+  <Tag data-animate class={className}>
+    <slot />
+  </Tag>
+)}

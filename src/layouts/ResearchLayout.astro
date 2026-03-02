@@ -1,0 +1,62 @@
+---
+import Layout from './Layout.astro';
+import '../styles/prose.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Research — Stagent',
+  description = 'The Harness Layer: A research paper on multi-agent autonomous orchestration for long-horizon task completion.',
+} = Astro.props;
+---
+<Layout title={title} description={description}>
+  <!-- Reading progress bar -->
+  <div
+    id="reading-progress"
+    class="fixed top-0 left-0 h-[2px] bg-amber z-50 transition-none"
+    style="width: 0%"
+  ></div>
+
+  <!-- Sticky minimal nav -->
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border">
+    <div class="max-w-[72ch] mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="/" class="font-mono text-sm tracking-[0.3em] text-text-muted hover:text-amber transition-colors">
+        STAGENT
+      </a>
+      <a href="/" class="font-mono text-xs text-text-muted hover:text-amber transition-colors">
+        &larr; Back to Home
+      </a>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="max-w-[72ch] mx-auto px-6 pt-24 pb-32">
+    <article class="prose">
+      <slot />
+    </article>
+  </main>
+
+  <!-- Reading progress script -->
+  <script>
+    function initProgress() {
+      const bar = document.getElementById('reading-progress');
+      if (!bar) return;
+
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = `${Math.min(progress, 100)}%`;
+      }
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    }
+
+    initProgress();
+    document.addEventListener('astro:after-swap', initProgress);
+  </script>
+</Layout>

@@ -1,0 +1,59 @@
+---
+import type { Protocol } from '../../data/protocols';
+
+interface Props {
+  protocols: Protocol[];
+  class?: string;
+}
+
+const { protocols, class: className = '' } = Astro.props;
+---
+<svg
+  viewBox="0 0 340 400"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+>
+  {protocols.map((proto, i) => {
+    const y = 10 + i * 64;
+    const isCore = proto.isCore;
+    return (
+      <g>
+        <rect
+          x="10"
+          y={y}
+          width="320"
+          height="50"
+          rx="5"
+          stroke={isCore ? 'var(--color-amber)' : 'currentColor'}
+          stroke-width={isCore ? 1.5 : 0.75}
+          fill={isCore ? 'var(--color-amber-dim)' : 'none'}
+          opacity={isCore ? 1 : 0.4}
+        />
+        <text
+          x="28"
+          y={y + 31}
+          fill={isCore ? 'var(--color-amber)' : 'currentColor'}
+          font-family="var(--font-mono)"
+          font-size="14"
+          letter-spacing="0.08em"
+          opacity={isCore ? 1 : 0.5}
+        >
+          {proto.label}
+        </text>
+        <text
+          x="318"
+          y={y + 31}
+          text-anchor="end"
+          fill="currentColor"
+          font-family="var(--font-body)"
+          font-size="12"
+          opacity="0.4"
+        >
+          {proto.description}
+        </text>
+      </g>
+    );
+  })}
+</svg>

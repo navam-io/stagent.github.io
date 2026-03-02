@@ -1,0 +1,45 @@
+---
+import AmberRule from '../ui/AmberRule.astro';
+---
+<section class="py-32 px-6">
+  <AmberRule />
+
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 data-animate class="font-display text-[clamp(1.75rem,4vw,3rem)] mb-6">
+      The harness layer is open.
+    </h2>
+
+    <p data-animate class="text-text-muted mb-16 max-w-lg mx-auto" style="transition-delay: 100ms">
+      Read the research. Explore the code. Join the community building
+      the orchestration layer for autonomous agents.
+    </p>
+
+    <div data-animate-stagger class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        data-animate
+        href="/research"
+        class="font-mono text-xs tracking-[0.2em] uppercase text-surface bg-amber px-8 py-3 hover:bg-amber/90 transition-colors"
+      >
+        Research Paper
+      </a>
+      <a
+        data-animate
+        href="https://github.com/stagent"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-mono text-xs tracking-[0.2em] uppercase text-amber border border-amber/30 px-8 py-3 hover:bg-amber/10 transition-colors"
+      >
+        GitHub
+      </a>
+      <a
+        data-animate
+        href="https://github.com/stagent/discussions"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-mono text-xs tracking-[0.2em] uppercase text-text-muted border border-border px-8 py-3 hover:border-text-muted transition-colors"
+      >
+        Community
+      </a>
+    </div>
+  </div>
+</section>
