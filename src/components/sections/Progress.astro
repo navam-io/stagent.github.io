@@ -1,0 +1,106 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+import ProgressDashboard from '../svg/ProgressDashboard.astro';
+import { stats } from '../../data/progress';
+
+const metrics = [
+  { value: '7.3K+', label: 'Lines of Code', countValue: 73, suffix: 'K+', divisor: 10 },
+  { value: '117', label: 'Tests Passing', countValue: 117, suffix: '', divisor: 1 },
+  { value: '5/37', label: 'Intents Complete', countValue: 5, suffix: '/37', divisor: 1 },
+  { value: '19', label: 'Commits', countValue: 19, suffix: '', divisor: 1 },
+];
+
+const subStats = [
+  { value: stats.ipc, label: 'IPC Commands' },
+  { value: stats.dbTables, label: 'DB Tables' },
+  { value: stats.components, label: 'UI Components' },
+];
+---
+<section class="py-32 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div data-animate class="mb-12">
+      <SectionLabel text="Progress" />
+      <h2 class="mt-4">Built in days, not months.</h2>
+    </div>
+
+    <!-- Stat cards -->
+    <div data-animate class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" id="progress-metrics">
+      {metrics.map((m) => (
+        <div class="text-center p-5 border border-border">
+          <div
+            class="font-display text-3xl text-amber mb-1"
+            data-count-to={m.countValue}
+            data-count-suffix={m.suffix}
+            data-count-divisor={m.divisor}
+          >0{m.suffix}</div>
+          <div class="font-mono text-[0.625rem] tracking-widest uppercase text-text-muted">
+            {m.label}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Dashboard SVG -->
+    <div data-animate class="mb-16" style="transition-delay: 100ms">
+      <ProgressDashboard class="w-full text-text-muted" />
+    </div>
+
+    <!-- Sub-stats row -->
+    <div data-animate class="flex flex-wrap justify-center gap-6" style="transition-delay: 200ms">
+      {subStats.map((s) => (
+        <span class="font-mono text-[0.625rem] tracking-widest uppercase text-text-muted border border-border px-4 py-2">
+          {s.value} {s.label}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initProgressCounters() {
+    const metricsBar = document.getElementById('progress-metrics');
+    if (!metricsBar) return;
+
+    const counters = metricsBar.querySelectorAll('[data-count-to]');
+    let animated = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            counters.forEach((el) => {
+              const target = parseInt(el.getAttribute('data-count-to') || '0', 10);
+              const suffix = el.getAttribute('data-count-suffix') || '';
+              const divisor = parseInt(el.getAttribute('data-count-divisor') || '1', 10);
+              const duration = 1200;
+              const start = performance.now();
+
+              function update(now: number) {
+                const elapsed = now - start;
+                const t = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                const current = Math.round(eased * target);
+                const display = divisor > 1 ? (current / divisor).toFixed(1) : current.toString();
+                el.textContent = display + suffix;
+
+                if (t < 1) {
+                  requestAnimationFrame(update);
+                }
+              }
+
+              requestAnimationFrame(update);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(metricsBar);
+  }
+
+  initProgressCounters();
+  document.addEventListener('astro:after-swap', initProgressCounters);
+</script>

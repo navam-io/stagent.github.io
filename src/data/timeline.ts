@@ -60,7 +60,7 @@ export const timeline: TimelineItem[] = [
     year: '2026',
     project: 'Stagent',
     role: 'Multi-agent autonomous harness',
-    stats: '45K+ lines (projected) · Rust + TypeScript',
+    stats: '7.3K+ lines · 117 tests · Rust + TypeScript',
     techWave: 'The Harness Layer',
     isCurrent: true,
   },

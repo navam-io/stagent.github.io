@@ -28,7 +28,7 @@ The AI agent landscape in 2026 is fragmented across four architectural layers: i
 
 This paper presents Stagent, a desktop-native, open-source harness designed to bridge these gaps. Stagent introduces five differentiating capabilities: long-horizon task persistence, multi-model orchestration, memory-native architecture, graduated autonomy, and hybrid execution across local and cloud environments. The system is built on a Rust + TypeScript hybrid architecture using Tauri, with MCP and A2A protocols forming the communication backbone.
 
-We analyze the competitive landscape through four reverse-engineering case studies, present the architectural decisions informed by these analyses, and outline a research portfolio of 18+ projects spanning AI agents, fintech, social CRM, and infrastructure intelligence that inform the Stagent design.
+We analyze the existing tool landscape across four categories through structured case studies, present the architectural decisions informed by these analyses, and outline a research portfolio of 18+ projects spanning AI agents, fintech, social CRM, and infrastructure intelligence that inform the Stagent design.
 
 ---
 
@@ -69,7 +69,7 @@ This is not a failure of engineering. It is a consequence of architecture — ea
 
 Stagent is the harness layer — the system that consumes infrastructure, adopts application patterns, orchestrates across them, and adds the capabilities no existing product provides.
 
-The harness does not compete with infrastructure (browser pools, LLM APIs) or replace application patterns (gateway routing, plugin architectures). Instead, it consumes them as commodity inputs and composes them into something new: goal-oriented, persistent, memory-native multi-agent execution.
+The harness does not replace infrastructure (browser pools, LLM APIs) or application patterns (gateway routing, plugin architectures). Instead, it consumes them as commodity inputs and composes them into something new: goal-oriented, persistent, memory-native multi-agent execution.
 
 <Figure number={2} caption="Concentric consumption model — Stagent at center consumes infrastructure, application, and orchestration layers as commodity inputs.">
   <HarnessOrbit class="w-full max-w-[400px] text-text-muted" />
@@ -200,9 +200,9 @@ Tool execution uses WASM sandboxes (Wasmtime) for lightweight, formally isolated
 
 ---
 
-## 5. Competitive Landscape Analysis
+## 5. Tool Landscape Analysis
 
-Four products were reverse-engineered to inform Stagent's architecture. Each validates specific patterns while revealing the gap that Stagent addresses.
+Four tool categories were studied to inform Stagent's architecture. Each validates specific patterns while revealing the gap that Stagent addresses.
 
 **Gateway Control Planes** prove that centralized routing, policy enforcement, and observability work at scale. Plugin lifecycle hooks with strategic control points provide extensibility. Hybrid search for memory (BM25 + vector) delivers effective retrieval. The limitation: reactive sessions with no goal awareness.
 
@@ -221,7 +221,7 @@ Four products were reverse-engineered to inform Stagent's architecture. Each val
 
 ### 5.1 Positioning
 
-<Figure number={6} caption="Competitive positioning on Cloud-Desktop and Reactive-Autonomous axes. Stagent (amber) occupies the desktop-autonomous quadrant uniquely.">
+<Figure number={6} caption="Tool category positioning on Cloud-Desktop and Reactive-Autonomous axes. Stagent (amber) occupies the desktop-autonomous quadrant uniquely.">
   <PositioningGrid class="w-full max-w-[440px] text-text-muted" />
 </Figure>
 
@@ -289,28 +289,43 @@ The portfolio encompasses 45,000+ lines of code, 27+ AI agents built and deploye
 
 | Phase | Timeline | Focus | Key Deliverables |
 |-------|----------|-------|-----------------|
-| 1. Foundation | Months 1-3 | Working MVP | Tauri shell, task canvas, single-model agent, MCP tools, basic memory |
-| 2. Distribution | Months 3-6 | Alpha release | Cross-platform (macOS/Win/Linux), community templates, contributor infra |
-| 3. Maturity | Months 6-12 | Tier 2 features | Agent inspector, browser fleet, connector marketplace, semantic memory |
-| 4. Ecosystem | Months 9+ | Platform growth | Cloud sandbox integration, A2A protocol, community ecosystem |
+| 1. Foundation | Weeks 1–2 | Working MVP | Tauri shell, task canvas, single-model agent, MCP tools, basic memory |
+| 2. Distribution | Weeks 3–4 | Alpha release | Cross-platform (macOS/Win/Linux), community templates, contributor infra |
+| 3. Maturity | Weeks 5–8 | Tier 2 features | Agent inspector, browser fleet, connector marketplace, semantic memory |
+| 4. Ecosystem | Weeks 6+ | Platform growth | Cloud sandbox integration, A2A protocol, community ecosystem |
 
-### Phase 1: Foundation (Months 1-3)
+### Development Velocity
+
+Early development validates the compressed timeline. In the first 21 hours of active development, the project achieved measurable progress across all foundation components:
+
+| Metric | Value |
+|--------|-------|
+| Total lines of code | 7,281 (Rust + TypeScript) |
+| Test coverage | 117 tests (Vitest + Playwright + Rust) |
+| Git commits | 19 commits in ~21 hours |
+| Intent completion | 5 of 37 intents (Tauri shell, IPC bridge, task persistence, React canvas, working memory) |
+| IPC commands | 22 defined commands across the Rust–TypeScript boundary |
+| Database tables | 11 tables (tasks, agents, memory, checkpoints, tools, metrics) |
+
+This velocity — roughly 350 LOC/hour sustained across two languages and three test frameworks — suggests the week-scale roadmap is achievable. The intent-driven development approach, where each intent maps to a specific capability with acceptance criteria, provides the structure that enables this pace.
+
+### Phase 1: Foundation (Weeks 1–2)
 
 Working MVP with Tauri desktop shell, task canvas (React Flow DAG), single-model agent execution, MCP tool integration, basic memory system (working + episodic), and persistent task store with checkpoint/resume.
 
-### Phase 2: Distribution (Months 3-6)
+### Phase 2: Distribution (Weeks 3–4)
 
 Alpha release across macOS, Windows, and Linux. Community template marketplace, contributor infrastructure, and initial distribution through developer channels.
 
-### Phase 3: Maturity (Months 6-12)
+### Phase 3: Maturity (Weeks 5–8)
 
 Tier 2 features including live agent inspector, browser fleet manager, and connector marketplace. Semantic and procedural memory maturity. Learning loop for trust calibration.
 
-### Phase 4: Ecosystem (Months 9+)
+### Phase 4: Ecosystem (Weeks 6+)
 
 Hybrid execution with cloud sandbox integration. A2A protocol support for cross-framework agent collaboration. Community-driven template and connector ecosystem.
 
-<Figure number={7} caption="Gantt-style roadmap — four staggered phases from foundation (months 0-3) through ecosystem (months 9+). Decreasing opacity reflects increasing speculativeness.">
+<Figure number={7} caption="Gantt-style roadmap — four staggered phases from foundation (weeks 1–2) through ecosystem (weeks 6+). Decreasing opacity reflects increasing speculativeness.">
   <RoadmapTimeline class="w-full max-w-[510px] text-text-muted" />
 </Figure>
 
@@ -329,7 +344,7 @@ The long-term vision: an open ecosystem where the harness layer is infrastructur
 7. Bytecode Alliance, "Wasmtime: A Fast and Secure Runtime for WebAssembly," 2024.
 8. React Flow Contributors, "React Flow: Wire Your Ideas with React Flow," 2024.
 9. SQLite Consortium, "sqlite-vec: Vector Search Extension for SQLite," 2024.
-10. Research portfolio analysis: Four reverse-engineering case studies of production agent systems, 2026.
+10. Research portfolio analysis: Four case studies of existing production agent systems, 2026.
 11. CB Insights, "AI Browser and Agent Market Analysis," 2024.
 12. Robertson, S., "The Probabilistic Relevance Framework: BM25 and Beyond," *Foundations and Trends in Information Retrieval*, 2009.
 13. Carbonell, J. and Goldstein, J., "The Use of MMR, Diversity-Based Reranking for Reordering Documents," *SIGIR*, 1998.

@@ -1,0 +1,197 @@
+---
+import { velocity, intents, stats } from '../../data/progress';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// ── Chart geometry ──
+const chartLeft = 60;
+const chartRight = 660;
+const chartTop = 30;
+const chartBottom = 190;
+const maxDay = 3; // leave room beyond current data
+const maxLoc = 8000;
+
+const xScale = (day: number) => chartLeft + (day / maxDay) * (chartRight - chartLeft);
+const yScale = (loc: number) => chartBottom - (loc / maxLoc) * (chartBottom - chartTop);
+
+// Build polyline points for the line
+const linePoints = velocity.map((p) => `${xScale(p.day)},${yScale(p.loc)}`).join(' ');
+
+// Build polygon points for the filled area (close back to x-axis)
+const areaPoints = [
+  `${xScale(velocity[0].day)},${yScale(0)}`,
+  ...velocity.map((p) => `${xScale(p.day)},${yScale(p.loc)}`),
+  `${xScale(velocity[velocity.length - 1].day)},${yScale(0)}`,
+].join(' ');
+
+// Y-axis gridlines
+const gridValues = [2000, 4000, 6000, 8000];
+
+// ── Intent grid geometry ──
+const gridStartX = 60;
+const gridStartY = 230;
+const cellSize = 24;
+const cellGap = 4;
+const cols = 10;
+
+const cellX = (i: number) => gridStartX + (i % cols) * (cellSize + cellGap);
+const cellY = (i: number) => gridStartY + Math.floor(i / cols) * (cellSize + cellGap);
+
+const completedCount = intents.filter((i) => i.done).length;
+---
+<svg
+  viewBox="0 0 700 340"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+>
+  <!-- ── Velocity Area Chart ── -->
+
+  <!-- Chart title -->
+  <text
+    x={chartLeft}
+    y="18"
+    fill="currentColor"
+    font-family="var(--font-mono)"
+    font-size="9"
+    letter-spacing="0.1em"
+    opacity="0.5"
+  >CUMULATIVE LOC</text>
+
+  <!-- Y-axis gridlines -->
+  {gridValues.map((val) => (
+    <g>
+      <line
+        x1={chartLeft}
+        y1={yScale(val)}
+        x2={chartRight}
+        y2={yScale(val)}
+        stroke="currentColor"
+        stroke-width="0.5"
+        stroke-dasharray="3 3"
+        opacity="0.1"
+      />
+      <text
+        x={chartLeft - 8}
+        y={yScale(val) + 3}
+        text-anchor="end"
+        fill="currentColor"
+        font-family="var(--font-mono)"
+        font-size="9"
+        opacity="0.4"
+      >{(val / 1000).toFixed(0)}K</text>
+    </g>
+  ))}
+
+  <!-- X-axis baseline -->
+  <line
+    x1={chartLeft}
+    y1={chartBottom}
+    x2={chartRight}
+    y2={chartBottom}
+    stroke="currentColor"
+    stroke-width="0.5"
+    opacity="0.15"
+  />
+
+  <!-- X-axis day labels -->
+  {velocity.map((p) => (
+    <text
+      x={xScale(p.day)}
+      y={chartBottom + 16}
+      text-anchor="middle"
+      fill="currentColor"
+      font-family="var(--font-mono)"
+      font-size="9"
+      opacity="0.4"
+    >{p.label}</text>
+  ))}
+
+  <!-- Area fill -->
+  <polygon
+    points={areaPoints}
+    fill="var(--color-amber-dim)"
+    opacity="0.3"
+  />
+
+  <!-- Line -->
+  <polyline
+    points={linePoints}
+    stroke="var(--color-amber)"
+    stroke-width="2"
+    fill="none"
+  />
+
+  <!-- Data points -->
+  {velocity.map((p) => (
+    <g>
+      <circle
+        cx={xScale(p.day)}
+        cy={yScale(p.loc)}
+        r="4"
+        fill="var(--color-amber)"
+      />
+      {p.loc > 0 && (
+        <text
+          x={xScale(p.day)}
+          y={yScale(p.loc) - 10}
+          text-anchor="middle"
+          fill="var(--color-amber)"
+          font-family="var(--font-mono)"
+          font-size="9"
+          font-weight="bold"
+        >{p.loc.toLocaleString()}</text>
+      )}
+    </g>
+  ))}
+
+  <!-- ── Intent Completion Grid ── -->
+
+  <!-- Grid title -->
+  <text
+    x={gridStartX}
+    y={gridStartY - 10}
+    fill="currentColor"
+    font-family="var(--font-mono)"
+    font-size="9"
+    letter-spacing="0.1em"
+    opacity="0.5"
+  >INTENT COMPLETION ({completedCount}/{intents.length})</text>
+
+  <!-- Grid cells -->
+  {intents.map((intent, i) => (
+    <rect
+      x={cellX(i)}
+      y={cellY(i)}
+      width={cellSize}
+      height={cellSize}
+      rx="3"
+      fill={intent.done ? 'var(--color-amber-dim)' : 'none'}
+      stroke={intent.done ? 'var(--color-amber)' : 'currentColor'}
+      stroke-width={intent.done ? 1.5 : 0.75}
+      opacity={intent.done ? 1 : 0.2}
+    >
+      <title>{intent.id}: {intent.name}</title>
+    </rect>
+  ))}
+
+  <!-- Legend -->
+  <g transform={`translate(${gridStartX + cols * (cellSize + cellGap) + 20}, ${gridStartY})`}>
+    <rect x="0" y="0" width="12" height="12" rx="2"
+      fill="var(--color-amber-dim)" stroke="var(--color-amber)" stroke-width="1.5" />
+    <text x="18" y="10" fill="currentColor" font-family="var(--font-mono)" font-size="8" opacity="0.5">
+      COMPLETE
+    </text>
+
+    <rect x="0" y="20" width="12" height="12" rx="2"
+      fill="none" stroke="currentColor" stroke-width="0.75" opacity="0.2" />
+    <text x="18" y="30" fill="currentColor" font-family="var(--font-mono)" font-size="8" opacity="0.5">
+      REMAINING
+    </text>
+  </g>
+</svg>
