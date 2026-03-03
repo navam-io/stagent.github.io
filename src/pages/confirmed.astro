@@ -9,7 +9,7 @@ const error = Astro.url.searchParams.get('error');
 const isError = status === 'error';
 const isAlready = status === 'already';
 ---
-<Layout title="Waitlist Confirmed — Stagent">
+<Layout title="Waitlist Confirmed — Stagent" noindex={true}>
   <Nav />
   <main class="min-h-[70vh] flex items-center justify-center px-6">
     <div class="max-w-md text-center">

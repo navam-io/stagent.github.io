@@ -1,18 +1,98 @@
 ---
 import Layout from './Layout.astro';
 import '../styles/prose.css';
+import { SITE, PUBLISHER } from '../data/seo';
 
 interface Props {
   title?: string;
   description?: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+  readingTime?: string;
 }
 
 const {
   title = 'Research — Stagent',
   description = 'The Harness Layer: A research paper on multi-agent autonomous orchestration for long-horizon task completion.',
+  datePublished = '2026-03-01',
+  dateModified = '2026-03-02',
+  author = 'Navam',
+  readingTime,
 } = Astro.props;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: title,
+    description,
+    author: {
+      '@type': 'Person',
+      name: author,
+    },
+    publisher: PUBLISHER,
+    datePublished,
+    dateModified,
+    wordCount: 5500,
+    proficiencyLevel: 'Expert',
+    url: `${SITE.url}/research/`,
+    image: `${SITE.url}/og-image.png`,
+    about: [
+      { '@type': 'Thing', name: 'Multi-agent systems' },
+      { '@type': 'Thing', name: 'AI orchestration' },
+      { '@type': 'Thing', name: 'Desktop autonomous agents' },
+      { '@type': 'Thing', name: 'Model Context Protocol (MCP)' },
+      { '@type': 'Thing', name: 'Agent-to-Agent Protocol (A2A)' },
+    ],
+    citation: [
+      {
+        '@type': 'CreativeWork',
+        name: 'Model Context Protocol Specification',
+        url: 'https://modelcontextprotocol.io',
+        author: { '@type': 'Organization', name: 'Anthropic' },
+      },
+      {
+        '@type': 'CreativeWork',
+        name: 'Agent-to-Agent Protocol (A2A) Specification',
+        url: 'https://google.github.io/A2A/',
+        author: { '@type': 'Organization', name: 'Google' },
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Research',
+        item: `${SITE.url}/research/`,
+      },
+    ],
+  },
+];
 ---
-<Layout title={title} description={description}>
+<Layout
+  title={title}
+  description={description}
+  ogType="article"
+  article={{ datePublished, dateModified, author }}
+  jsonLd={jsonLd}
+>
+  <!-- Citation meta tags for Google Scholar / AI discovery -->
+  <meta slot="head" name="citation_title" content={title} />
+  <meta slot="head" name="citation_author" content={author} />
+  <meta slot="head" name="citation_date" content={datePublished} />
+  <meta slot="head" name="citation_public_url" content={`${SITE.url}/research/`} />
+
   <!-- Reading progress bar -->
   <div
     id="reading-progress"
@@ -21,7 +101,7 @@ const {
   ></div>
 
   <!-- Sticky minimal nav -->
-  <nav class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border">
+  <nav aria-label="Research paper navigation" class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border">
     <div class="max-w-[72ch] mx-auto px-6 py-3 flex items-center justify-between">
       <a href="/" class="font-mono text-sm tracking-[0.3em] text-text-muted hover:text-amber transition-colors">
         STAGENT

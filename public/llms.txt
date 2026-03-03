@@ -1,0 +1,41 @@
+# Stagent
+
+> Desktop-native, open-source harness that turns high-level goals into observable, long-running agent workflows — across any model, any tool, any timeline.
+
+## About
+
+Stagent is the harness layer for multi-agent autonomous orchestration. It is a Tauri-based desktop application (Rust + TypeScript) that consumes infrastructure, application, and orchestration layers as commodity inputs and composes them into goal-oriented, persistent, memory-native multi-agent execution.
+
+### Five Differentiation Pillars
+
+1. **Long-Horizon Task Persistence** — Tasks that survive beyond sessions with checkpoint/resume, progress tracking, failure recovery, and per-task resource budgets.
+2. **Multi-Model Orchestration** — Routes subtasks to the best available model (Claude, GPT, Gemini, Grok, Ollama) based on measured performance.
+3. **Memory-Native Architecture** — Four-tier hierarchical memory (working, episodic, semantic, procedural) with hybrid retrieval (BM25 + vector + MMR).
+4. **Graduated Autonomy** — Trust earned through demonstrated competence. Supervised → semi-autonomous → autonomous, scoped per-agent-type, per-task-type, per-risk-level.
+5. **Hybrid Execution** — Desktop-native with cloud reach. Same task graph runs locally or in the cloud with state portability.
+
+### Technology Stack
+
+- **Backend**: Rust (Tauri), WASM sandboxing (Wasmtime), SQLite (rusqlite)
+- **Frontend**: TypeScript, React, React Flow (task DAG canvas)
+- **Protocols**: MCP, A2A, CDP, WebMCP, Tauri IPC, WebSocket
+- **AI Providers**: Anthropic Claude, OpenAI, Google Gemini, Ollama
+
+### Status
+
+- License: Apache 2.0
+- Stage: Pre-alpha (active development)
+- Founder: Navam
+
+## Documentation
+
+- [Homepage](https://stagent.io): Product overview, architecture, competitive analysis, roadmap
+- [Research Paper](https://stagent.io/research/): Full technical paper — "The Harness Layer: Multi-Agent Autonomous Orchestration for Long-Horizon Task Completion"
+
+## Source Code
+
+- [GitHub Organization](https://github.com/stagent)
+
+## Optional
+
+- [Sitemap](https://stagent.io/sitemap-index.xml)

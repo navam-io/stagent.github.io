@@ -8,7 +8,7 @@ interface Props {
 
 const { id, number, caption, class: className = '' } = Astro.props;
 ---
-<figure id={id} class:list={['my-8 mx-auto', className]}>
+<figure id={id} role="group" aria-label={`Figure ${number}: ${caption}`} class:list={['my-8 mx-auto', className]}>
   <div class="flex justify-center">
     <slot />
   </div>

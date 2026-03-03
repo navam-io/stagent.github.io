@@ -1,0 +1,20 @@
+/* TEAM */
+
+Founder: Navam
+Site: https://stagent.io
+GitHub: https://github.com/stagent
+
+/* TECHNOLOGY */
+
+Framework: Astro 5
+Styling: Tailwind CSS 4
+Fonts: DM Serif Display, DM Sans, JetBrains Mono
+Hosting: GitHub Pages
+
+/* PRODUCT */
+
+Name: Stagent
+Tagline: Multi-Agent Autonomous Harness
+License: Apache 2.0
+Stack: Rust + TypeScript (Tauri)
+Protocols: MCP, A2A, CDP, WebMCP
