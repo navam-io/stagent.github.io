@@ -3,11 +3,12 @@ import SectionLabel from '../ui/SectionLabel.astro';
 import ProgressDashboard from '../svg/ProgressDashboard.astro';
 import { stats } from '../../data/progress';
 
+const locK = Math.round(stats.loc.total / 100) ; // e.g. 16285 → 163 (displayed as 16.3)
 const metrics = [
-  { value: '7.3K+', label: 'Lines of Code', countValue: 73, suffix: 'K+', divisor: 10 },
-  { value: '117', label: 'Tests Passing', countValue: 117, suffix: '', divisor: 1 },
-  { value: '5/37', label: 'Intents Complete', countValue: 5, suffix: '/37', divisor: 1 },
-  { value: '19', label: 'Commits', countValue: 19, suffix: '', divisor: 1 },
+  { value: `${(stats.loc.total / 1000).toFixed(1)}K+`, label: 'Lines of Code', countValue: locK, suffix: 'K+', divisor: 10 },
+  { value: String(stats.tests.total), label: 'Tests Passing', countValue: stats.tests.total, suffix: '', divisor: 1 },
+  { value: `${stats.intents.completed}/${stats.intents.total}`, label: 'Intents Complete', countValue: stats.intents.completed, suffix: `/${stats.intents.total}`, divisor: 1 },
+  { value: String(stats.commits.count), label: 'Commits', countValue: stats.commits.count, suffix: '', divisor: 1 },
 ];
 
 const subStats = [

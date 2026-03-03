@@ -16,7 +16,7 @@ const CHART_H = 140;
 const CHART_BOTTOM = CHART_TOP + CHART_H;
 
 const maxDay = 4;
-const maxLoc = 14000;
+const maxLoc = 20000;
 
 // Convert data to chart coordinates
 const dayToX = (day: number) => CHART_LEFT + (day / maxDay) * CHART_W;
@@ -39,7 +39,7 @@ const areaPointsStr = [
 ].join(' ');
 
 // Y-axis gridlines
-const yGridValues = [2000, 4000, 6000, 8000, 10000, 12000, 14000];
+const yGridValues = [5000, 10000, 15000, 20000];
 
 // X-axis day labels (real + projected)
 const allDayLabels = [

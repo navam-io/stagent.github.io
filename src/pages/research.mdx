@@ -279,7 +279,7 @@ Stagent is informed by a research portfolio spanning 18+ projects across AI agen
 | 2025 | DeepResearch | Grounded AI Research | Python, LangGraph, Vue, RAG | 36 blueprints · 10+ vendors |
 | 2025 | BrowseAI | AI Browsing Companion | Browser Extension, multi-provider LLM | 21.9K LOC |
 | 2025 | TerminalOS | CLI Workflow Automation | Anthropic, OpenAI, Gemini, Ollama | 15K LOC |
-| 2026 | Stagent | Harness Layer | Tauri, Rust + TypeScript, MCP, A2A | 7.3K+ LOC · 117 tests |
+| 2026 | Stagent | Harness Layer | Tauri, Rust + TypeScript, MCP, A2A | 16.3K+ LOC · 421 tests |
 
 **FinEdge** (2024) — 45K LOC across Python, Anthropic Claude, PostgreSQL, and LangGraph. Built 11 specialized financial agents with 32+ API integrations and streaming workflows. Validated patterns for LangGraph orchestration, intelligent caching, and multi-agent coordination in production fintech.
 
@@ -329,18 +329,18 @@ This breadth is not incidental — each technology was chosen and validated in p
 
 ### Development Velocity
 
-Early development validates the compressed timeline. In the first 21 hours of active development, the project achieved measurable progress across all foundation components:
+Early development validates the compressed timeline. In 33.5 hours of active development, the project achieved measurable progress across all foundation and early MVP components:
 
 | Metric | Value |
 |--------|-------|
-| Total lines of code | 7,281 (Rust + TypeScript) |
-| Test coverage | 117 tests (Vitest + Playwright + Rust) |
-| Git commits | 19 commits in ~21 hours |
-| Intent completion | 5 of 37 intents (Tauri shell, IPC bridge, task persistence, React canvas, working memory) |
-| IPC commands | 22 defined commands across the Rust–TypeScript boundary |
+| Total lines of code | 16,285 (Rust + TypeScript) |
+| Test coverage | 421 tests (Vitest + Playwright + Rust) |
+| Git commits | 27 commits in ~33.5 hours |
+| Intent completion | 10 of 37 intents (Foundation tier 6/7 + MVP tier 4/17) |
+| IPC commands | 31 defined commands across the Rust–TypeScript boundary |
 | Database tables | 11 tables (tasks, agents, memory, checkpoints, tools, metrics) |
 
-This velocity — roughly 350 LOC/hour sustained across two languages and three test frameworks — suggests the week-scale roadmap is achievable. The intent-driven development approach, where each intent maps to a specific capability with acceptance criteria, provides the structure that enables this pace.
+This velocity — roughly 486 LOC/hour sustained across two languages and three test frameworks — suggests the week-scale roadmap is achievable. The intent-driven development approach, where each intent maps to a specific capability with acceptance criteria, provides the structure that enables this pace.
 
 ### Phase 1: Foundation (Weeks 1–2)
 
