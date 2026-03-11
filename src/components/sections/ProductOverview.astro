@@ -1,25 +1,30 @@
 ---
 import SectionLabel from '../ui/SectionLabel.astro';
-import BrowserFrame from '../ui/BrowserFrame.astro';
 
 const cards = [
   {
-    title: 'Familiar UX',
-    description: 'Kanban boards, not chat interfaces. Manage AI tasks the way you manage everything else.',
-    screenshot: '/screenshots/kanban-board.png',
-    alt: 'Kanban board with task cards organized by status columns',
+    title: 'Home Workspace',
+    description: 'See running work, pending approvals, active projects, and live agent activity from a single starting point.',
+    screenshot: '/screenshots/home-list.png',
+    alt: 'Home workspace showing summary metrics, tasks needing attention, and live agent activity',
   },
   {
-    title: 'Local-first',
-    description: 'SQLite database. Nothing leaves your machine. Your data, your control.',
-    screenshot: '/screenshots/settings-page.png',
-    alt: 'Settings page showing local configuration options',
+    title: 'Reusable Profiles',
+    description: 'Specialist agent profiles bundle instructions, tool policies, and runtime tuning into reusable operational templates.',
+    screenshot: '/screenshots/profiles-list.png',
+    alt: 'Profiles catalog showing work and personal agent profiles',
   },
   {
-    title: 'Human-in-the-loop',
-    description: 'Approve every agent action. Full visibility into what AI agents do on your behalf.',
-    screenshot: '/screenshots/inbox-notifications.png',
-    alt: 'Inbox showing agent permission requests awaiting approval',
+    title: 'Workflow Blueprints',
+    description: 'Start from proven multi-step blueprints instead of rebuilding orchestration logic for every repeatable process.',
+    screenshot: '/screenshots/workflows-blueprints.png',
+    alt: 'Workflow blueprint gallery with reusable templates',
+  },
+  {
+    title: 'Governed Execution',
+    description: 'Review permissions with allow once, always allow, and deny controls while keeping a clear audit trail of decisions.',
+    screenshot: '/screenshots/inbox-permissions.png',
+    alt: 'Inbox permissions tab showing approval controls for agent tool requests',
   },
 ];
 ---
@@ -30,7 +35,7 @@ const cards = [
       <h2 data-animate class="mt-4">Everything you need to manage AI agents</h2>
     </div>
 
-    <div data-animate-stagger class="grid md:grid-cols-3 gap-8">
+    <div data-animate-stagger class="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
       {cards.map(({ title, description, screenshot, alt }) => (
         <div data-animate class="group">
           <div class="img-reveal mb-6 overflow-hidden rounded-lg border border-border">

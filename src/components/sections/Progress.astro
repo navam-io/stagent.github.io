@@ -1,12 +1,27 @@
 ---
 import SectionLabel from '../ui/SectionLabel.astro';
-import FeatureVelocity from '../svg/FeatureVelocity.astro';
 
 const stats = [
-  { value: 21, label: 'Features' },
-  { value: 20, label: 'K LOC' },
-  { value: 8, label: 'DB Tables' },
-  { value: 132, label: 'Tests' },
+  {
+    value: '10',
+    label: 'Product Surfaces',
+    detail: 'Home, dashboard, projects, workflows, documents, inbox, monitor, profiles, schedules, and settings.',
+  },
+  {
+    value: '3',
+    label: 'Workflow Patterns',
+    detail: 'Sequence, planner-executor, and human-in-the-loop checkpoint orchestration.',
+  },
+  {
+    value: '2',
+    label: 'Authentication Modes',
+    detail: 'Connect with OAuth or a direct API key depending on how your team deploys Claude.',
+  },
+  {
+    value: 'Local-first',
+    label: 'Operating Model',
+    detail: 'SQLite-backed control plane, local files, and approvals that stay close to the work.',
+  },
 ];
 ---
 <section class="py-24 px-6">
@@ -16,61 +31,21 @@ const stats = [
       <h2 data-animate class="mt-4">Shipped, not slideware</h2>
     </div>
 
-    <!-- Animated counters -->
     <div data-animate-stagger class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-      {stats.map(({ value, label }) => (
-        <div data-animate class="text-center">
-          <div
-            class="text-4xl md:text-5xl font-bold text-primary font-mono counter"
-            data-target={value}
-          >
-            0
+      {stats.map(({ value, label, detail }) => (
+        <div data-animate class="rounded-xl border border-border bg-surface-raised p-6 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-primary font-mono">
+            {value}
           </div>
           <div class="text-text-muted text-sm mt-2 font-mono tracking-widest uppercase">{label}</div>
+          <p class="text-xs text-text-muted leading-relaxed mt-4">{detail}</p>
         </div>
       ))}
     </div>
-
-    <!-- Feature Velocity Chart -->
-    <div data-animate>
-      <h3 class="text-center text-lg font-semibold mb-8">Feature velocity by day</h3>
-      <FeatureVelocity />
+    <div data-animate class="max-w-3xl mx-auto text-center">
+      <p class="text-text-muted leading-relaxed">
+        The current browser product now operates as a full coordination workspace with reusable agent profiles, workflow blueprints, scheduled runs, governed permissions, and document-linked execution.
+      </p>
     </div>
   </div>
 </section>
-
-<script>
-  function initCounters() {
-    const counters = document.querySelectorAll('.counter');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const target = parseInt(el.dataset.target || '0');
-          let current = 0;
-          const duration = 1500;
-          const start = performance.now();
-
-          function update(now: number) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            current = Math.round(eased * target);
-            el.textContent = String(current);
-            if (progress < 1) requestAnimationFrame(update);
-          }
-
-          requestAnimationFrame(update);
-          observer.unobserve(el);
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    counters.forEach((c) => observer.observe(c));
-  }
-
-  initCounters();
-  document.addEventListener('astro:after-swap', initCounters);
-</script>

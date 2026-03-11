@@ -1,0 +1,60 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: "Schedules"
+description: "Recurring and one-shot runs with timing, expiry, and profile selection in Stagent."
+---
+
+import BrowserFrame from '../../components/ui/BrowserFrame.astro'
+
+# Schedules
+
+Schedules turn repeatable prompts into recurring or one-shot automations. They extend Stagent from a reactive execution tool into a system that can proactively generate work on a cadence you control.
+
+<BrowserFrame src="/screenshots/schedules-list.png" alt="Schedules list showing active, paused, and expired scheduled runs" />
+
+## Key Concepts
+
+- **Recurring or One-Shot** — Schedules can run on a repeating cadence or fire once and expire.
+- **Operational Status** — Active, paused, and expired states make it obvious which automations are live.
+- **Profile Selection** — A schedule can choose which agent profile should execute the recurring work.
+- **Guardrails** — Max firings and expiry windows stop a schedule from running forever by accident.
+
+<BrowserFrame src="/screenshots/schedules-detail.png" alt="Schedule detail showing prompt, next fire time, and firing history" />
+
+## How It Works
+
+The list view is the automation roster. It shows cadence, firing count, and lifecycle state so operators can quickly see what is still running and what has already expired or been paused.
+
+The detail view then exposes the exact prompt, next fire time, selected profile, and firing history. This keeps recurring automation observable in the same way that ad hoc tasks remain observable elsewhere in the product.
+
+<BrowserFrame src="/screenshots/schedules-create-form-filled.png" alt="Schedule creation form showing cadence, prompt, project, and agent profile controls" />
+
+---
+
+## Use Cases
+
+### Daily Business Briefing
+
+**Revenue Team** · *Creating a morning digest*
+
+A schedule runs every morning to summarize pipeline movement, stalled deals, and outreach changes before the standup. Operators still see the prompt, cadence, and next fire time in one place.
+
+### Compliance Reminders
+
+**Operations Team** · *One-shot follow-up workflows*
+
+You create a one-shot schedule to remind the team about missing tax forms or expiring vendor paperwork. The schedule handles the timing without requiring someone to remember it manually.
+
+### Market Watchlists
+
+**Individual User** · *Recurring portfolio monitoring*
+
+An active schedule checks overnight allocation drift every weekday morning and creates a new task when the threshold matters. It feels like automation, but it still stays inside the same governed workspace.
+
+---
+
+## Related Features
+
+- [Profiles](/docs/profiles) — Choose which specialist should run the schedule
+- [Workflows](/docs/workflows) — Feed recurring automation into multi-step processes
+- [Task Execution](/docs/tasks) — Review the work created by scheduled runs

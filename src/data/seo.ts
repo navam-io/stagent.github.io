@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Stagent',
   url: 'https://stagent.io',
   description:
-    'AI-powered task management where Claude agents execute tasks with human-in-the-loop oversight. Local-first, open source.',
+    'AI agent operations workspace with governed execution, reusable profiles, workflow blueprints, schedules, and local-first oversight.',
   logo: 'https://stagent.io/favicon.svg',
   ogImage: 'https://stagent.io/og-image.png',
   themeColor: '#1a1a2e',

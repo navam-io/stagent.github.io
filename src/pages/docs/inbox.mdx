@@ -1,38 +1,40 @@
 ---
 layout: ../../layouts/DocsLayout.astro
 title: "Human-in-the-Loop"
-description: "Permission requests, agent questions, approval workflows, and the notification inbox."
+description: "Permission reviews, agent messages, completions, and failure triage in Stagent’s inbox."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
 # Human-in-the-Loop
 
-The Inbox is the agent-to-human communication hub — an email-style interface where permission requests, agent questions, task completions, and failures surface for human review and action.
+The inbox is the operator-facing governance surface for Stagent. It consolidates permission requests, agent messages, completions, and failures into a single review queue so agents never act outside the trust boundary you set.
 
-<BrowserFrame src="/screenshots/inbox-notifications.png" alt="Inbox showing agent permission requests awaiting approval" />
+<BrowserFrame src="/screenshots/inbox-list.png" alt="Inbox showing a mixed feed of messages, responded permissions, and completions" />
 
 ## Key Concepts
 
-- **Permission Requests** — When an agent wants to use a tool (read a file, execute code, send data), a notification appears in the Inbox with full context. Click Allow or Deny
-- **Agent Questions** — The `AskUserQuestion` tool surfaces clarifying questions as conversational messages. Respond directly in the inbox
-- **Task Completions** — Get notified when agents finish work, with links to results
-- **Task Failures** — Error notifications with full context for debugging
+- **Mixed Feed** — The default inbox view blends permissions, messages, completions, and failures into one triage surface.
+- **Focused Tabs** — Operators can narrow to unread items, permission requests, or conversational messages when they need a tighter queue.
+- **Approval Controls** — Permission cards expose `Allow Once`, `Always Allow`, and `Deny` actions directly on the notification.
+- **Response History** — Stagent preserves whether a request has been handled already, preventing duplicate decision-making.
 
 ## Notification Types
 
 | Type | Action Required | Description |
 |------|:---:|-------------|
-| `permission_required` | Yes | Agent wants to use a tool — review and decide |
-| `agent_message` | Yes | Agent is asking a clarifying question |
-| `task_completed` | No | Informational — task finished successfully |
-| `task_failed` | No | Informational — task encountered an error |
+| `permission_required` | Yes | Review a tool request and decide whether the agent can continue |
+| `agent_message` | Yes | Respond to a clarification or provide missing direction |
+| `task_completed` | No | Track successful completion and inspect the outcome |
+| `task_failed` | No | Triage failures and decide whether to retry or intervene |
 
 ## How It Works
 
-The notification table acts as a message queue. When `canUseTool` fires, a row is written to the `notifications` table with the tool name, parameters, and context. The agent enters a polling loop, checking for a response every few seconds.
+When a running task needs human input, Stagent creates an inbox item and waits for the response. That input might be a permission review, a direct answer to a question, or simply a signal that a run finished or failed.
 
-When the user clicks Allow or Deny, their response is written via `POST /api/tasks/[id]/respond`. The polling loop detects the response and returns it to the Agent SDK.
+The permissions tab is the highest-signal view when you want to supervise active execution. It strips away the general feed and shows only the decisions that currently gate an agent.
+
+<BrowserFrame src="/screenshots/inbox-permissions.png" alt="Permissions inbox showing allow once, always allow, and deny actions" />
 
 ---
 
@@ -42,26 +44,19 @@ When the user clicks Allow or Deny, their response is written via `POST /api/tas
 
 **Product Team** · *Enforcing access policies across agent operations*
 
-Your compliance officer reviews every agent tool call. Read operations on internal docs get quick Allow clicks, but any write to production systems gets a Deny with a note explaining why. The notification history becomes an audit trail — every decision logged with timestamp, reviewer, and rationale.
+Your compliance lead lives in the permissions tab. Read requests on safe paths get approved quickly, while outbound email or write operations require a closer review before the workflow can continue.
 
 ### Interactive Research Session
 
 **Knowledge Worker** · *Collaborating with an agent on a financial analysis*
 
-The agent encounters conflicting revenue figures in two uploaded reports. Instead of guessing, it surfaces a clarifying question via `AskUserQuestion`: "Q3 revenue is $4.2M in the annual report but $3.8M in the quarterly filing — which source should I prioritize?" You respond directly in the Inbox, and the agent continues with the correct figure.
+The agent finds conflicting figures across two files and asks for clarification instead of guessing. You respond from the inbox, and the task resumes with a clear human decision attached to the record.
 
 ### Learning to Trust AI
 
 **Non-Technical User** · *Gradually reducing oversight as confidence grows*
 
-You start with every tool call requiring approval — 15 notifications for a simple document analysis task. But after watching the agent make safe, predictable choices across 50+ operations over a week, you begin trusting its judgment. The Inbox becomes a spot-check rather than a gatekeep, and your workflow accelerates dramatically.
-
----
-
-## On the Roadmap
-
-- **Autonomous Loop Execution** *(Coming Soon)* — Configurable trust tiers that let approved tool categories execute without human review, reducing Inbox noise for trusted operations
-- **Multi-Agent Swarm** *(Coming Soon)* — Aggregated notifications from multiple concurrent agents, with priority sorting so the most critical decisions surface first
+You begin by reviewing every request manually. Over time, you promote safe actions to `Always Allow`, reducing noise without removing the audit trail or hiding what the system is doing.
 
 ---
 
@@ -69,4 +64,4 @@ You start with every tool call requiring approval — 15 notifications for a sim
 
 - [Agent Integration](/docs/agents) — The canUseTool pattern that generates notifications
 - [Monitoring](/docs/monitoring) — See agent activity in real time
-- [Task Management](/docs/tasks) — Where tasks originate
+- [Task Execution](/docs/tasks) — Where task runs originate

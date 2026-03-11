@@ -1,37 +1,37 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Real-time Monitoring"
-description: "SSE-powered log streaming, agent activity tracking, and real-time visibility into task execution."
+title: "Monitoring"
+description: "Live agent visibility with activity cards, filters, and log streaming in the Stagent monitor."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
-# Real-time Monitoring
+# Monitoring
 
-The monitoring dashboard provides real-time visibility into agent activity — showing active agents, task assignments, streaming logs, and an activity timeline.
+The monitor is Stagent’s real-time execution feed. It complements the inbox by showing what agents are doing right now, not just the points where they need human input.
 
-<BrowserFrame src="/screenshots/monitor-logs.png" alt="Monitor view showing real-time agent execution logs with tool calls" />
+<BrowserFrame src="/screenshots/monitor-list.png" alt="Monitor view showing activity summary cards and a streaming log panel" />
 
 ## Key Concepts
 
-- **Server-Sent Events (SSE)** — Real-time log streaming from the server to the browser. No WebSockets needed — SSE is simpler, more reliable, and works through proxies
-- **Agent Logs** — Every tool invocation, reasoning step, and result is logged to the `agent_logs` table and streamed live
-- **Task Filtering** — Filter logs by task, by agent session, or view all activity across the system
-- **Activity Timeline** — Chronological view of all agent actions with timestamps and durations
+- **Workspace Health Cards** — Active agents, tasks today, success rate, and last activity stay visible above the log stream.
+- **Streaming Log View** — Runtime events appear chronologically so operators can follow one task or monitor the whole system.
+- **Task & Event Filters** — Narrow the stream to one task set or one class of event when debugging or demoing the product.
+- **Connection Status** — The monitor makes it explicit whether the stream is connected and whether auto-refresh is enabled.
 
 ## Log Entry Types
 
 Each log entry includes:
-- **Timestamp** — When the action occurred
-- **Task ID** — Which task the agent is working on
-- **Event Type** — Tool call, reasoning, result, error, or status change
-- **Content** — The full detail of what happened
+- **Timestamp** — When the event happened
+- **Task Context** — Which task or workflow step produced the event
+- **Event Type** — Tool call, content block, completion, or other runtime marker
+- **Content** — The event payload or summarized runtime output
 
 ## How It Works
 
-The monitoring endpoint (`/api/logs/stream`) uses a `ReadableStream` with a polling loop. The server checks the `agent_logs` table for new entries at regular intervals and pushes them to connected clients via SSE.
+The monitor is the fastest way to understand whether work is progressing normally. Operators can keep it open during a run, then pivot to the inbox only when the agent crosses a trust boundary or needs clarification.
 
-The browser receives these events and appends them to the log view in real time. Each entry is rendered with syntax highlighting for tool calls and code blocks.
+Because the monitor is filterable, it also works as a debugging surface. You can focus on one task, isolate one event class, and inspect the sequence that led to a failure or approval request.
 
 ---
 
@@ -41,26 +41,19 @@ The browser receives these events and appends them to the log view in real time.
 
 **Product Team** · *Showcasing agent capabilities to executives*
 
-You project the monitoring dashboard on the conference room screen and kick off a code analysis task. The SSE logs stream in real time — executives watch the agent read files, identify patterns, and generate a summary. The live feed makes the agent's reasoning transparent and builds organizational buy-in for AI adoption.
+You project the monitor during a product demo. Stakeholders see an active log stream, success-rate card, and visible task progress instead of a black-box spinner.
 
 ### Debugging a Failed Task
 
 **Developer** · *Tracing a failure to its root cause*
 
-A nightly data-processing task failed. You filter the monitoring logs by task ID and scroll through the execution timeline. At step 5, the agent attempted an API call that returned a 401 — an expired token. The log shows the exact request, response, and the agent's error-handling attempt. You rotate the token and re-queue the task.
+A nightly task failed. You filter the log stream to the relevant task, inspect the final tool calls, and confirm whether the problem was a permissions denial, missing file, or execution error before retrying.
 
 ### Overnight Batch Monitoring
 
 **Power User** · *Morning triage of unattended agent work*
 
-You queued 10 tasks before leaving the office. In the morning, the monitoring dashboard shows the results at a glance: 8 completed, 1 failed (network timeout at 3 AM), 1 still running. You click into the failed task's log stream, see the exact failure point, and decide whether to retry or reassign.
-
----
-
-## On the Roadmap
-
-- **Multi-Agent Swarm Monitoring** *(Coming Soon)* — Unified view across multiple concurrent agent sessions, with color-coded log streams per agent
-- **Performance Analytics** *(Coming Soon)* — Tokens-per-task metrics, retry rates, and average completion times to optimize agent efficiency over time
+You open the monitor after a night of scheduled work and can immediately tell whether the system is healthy, which task is still active, and where intervention is needed.
 
 ---
 
@@ -68,4 +61,4 @@ You queued 10 tasks before leaving the office. In the morning, the monitoring da
 
 - [Agent Integration](/docs/agents) — Where logs are generated
 - [Human-in-the-Loop](/docs/inbox) — Permission requests that appear during monitoring
-- [Task Management](/docs/tasks) — Task context for filtered views
+- [Task Execution](/docs/tasks) — Task context for filtered views

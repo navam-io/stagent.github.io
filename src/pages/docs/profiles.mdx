@@ -1,0 +1,60 @@
+---
+layout: ../../layouts/DocsLayout.astro
+title: "Profiles"
+description: "Curated agent profiles with prompts, tool policies, and runtime tuning in Stagent."
+---
+
+import BrowserFrame from '../../components/ui/BrowserFrame.astro'
+
+# Profiles
+
+Profiles are Stagent’s reusable agent definitions. They turn agent behavior into something operators can browse, inspect, duplicate, and tune instead of hiding it inside one-off prompts.
+
+<BrowserFrame src="/screenshots/profiles-list.png" alt="Profiles catalog showing work and personal agent profiles" />
+
+## Key Concepts
+
+- **Catalog View** — Browse specialist profiles across work and personal domains from one searchable surface.
+- **Role Metadata** — Tags, versioning, and authorship make it clear what a profile is for and who shaped it.
+- **Tool Policy** — Allowed tools are visible directly on the profile, making trust assumptions inspectable before execution begins.
+- **Runtime Tuning** — Temperature, max turns, and output format are part of the profile definition instead of being buried in code.
+
+<BrowserFrame src="/screenshots/profiles-detail.png" alt="Profile detail showing instructions, configuration, and tool policies" />
+
+## How It Works
+
+The list view helps operators find the right specialist quickly. From there, the detail view exposes the profile’s identity, model tuning, allowed tools, and `SKILL.md` instructions in one readable record.
+
+When a task, workflow step, or schedule runs, Stagent can attach one of these profiles so the execution layer starts from an explicit operational contract rather than an ad hoc prompt.
+
+<BrowserFrame src="/screenshots/profiles-create-form-filled.png" alt="Profile creation form showing metadata, allowed tools, and instructions" />
+
+---
+
+## Use Cases
+
+### Specialist Engineering Agents
+
+**Developer Team** · *Keeping review behavior consistent*
+
+You define separate profiles for code review, API testing, and documentation. Each one carries its own instructions and tool policy, so the same quality bar applies every time a workflow runs.
+
+### Operational Playbooks
+
+**Revenue Team** · *Standardizing repetitive analysis*
+
+A revenue operations profile can summarize pipeline movement, while a support-triage profile can review incoming issues. Instead of rewriting prompts every week, teams reuse explicit operational roles.
+
+### Personal Automation
+
+**Power User** · *Keeping personal and work contexts separate*
+
+You keep meal-planning and travel profiles separate from work-focused profiles. The profile catalog prevents accidental reuse of the wrong instructions or tool permissions.
+
+---
+
+## Related Features
+
+- [Agent Integration](/docs/agents) — How profiles shape runtime execution
+- [Workflows](/docs/workflows) — Assign profiles to multi-step automation
+- [Schedules](/docs/schedules) — Reuse profiles in recurring runs

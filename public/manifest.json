@@ -1,7 +1,7 @@
 {
   "name": "Stagent",
   "short_name": "Stagent",
-  "description": "AI-powered task management where Claude agents execute tasks with human-in-the-loop oversight.",
+  "description": "AI agent operations workspace with governed execution, reusable profiles, workflow blueprints, schedules, and local-first oversight.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#1a1a2e",

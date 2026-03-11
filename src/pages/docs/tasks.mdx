@@ -1,25 +1,25 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Task Management"
-description: "Kanban boards, AI-assisted task creation, drag-and-drop workflows, and task execution lifecycle."
+title: "Task Execution"
+description: "Status-driven task flow, task detail, and creation workflows across the Stagent dashboard."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
-# Task Management
+# Task Execution
 
-The Kanban board is the primary interface for managing agent tasks. Tasks flow through columns representing execution states: **Planned → Queued → Running → Completed/Failed**.
+Tasks are the unit of execution inside Stagent. They move through explicit lifecycle states and stay visible from the dashboard, project detail views, workflow steps, and related documents.
 
-<BrowserFrame src="/screenshots/kanban-board.png" alt="Kanban board with tasks organized across status columns" />
+<BrowserFrame src="/screenshots/dashboard-list.png" alt="Dashboard board showing tasks organized by status across multiple projects" />
 
 ## Key Concepts
 
-- **Status Columns** — Visual workflow columns mirror the task execution lifecycle. Drag-and-drop between Planned and Queued to control when agents pick up work
-- **Task Cards** — Each card shows title, priority, complexity, assigned agent, and progress indicators
-- **AI-Assisted Task Creation** — Describe a goal in natural language; Claude breaks it down into actionable subtasks with appropriate priority and complexity ratings
-- **Side Panel Detail** — Click any task to see full details, execution logs, and status history without leaving the board
+- **Lifecycle Lanes** — Planned, queued, running, completed, and failed states make task progress obvious at a glance.
+- **Project Context** — Every task remains tied to a project so work can be filtered globally or reviewed in a project-specific queue.
+- **Task Detail** — The detail view keeps priority, status, timestamps, and the task description together for review and intervention.
+- **Task Creation** — New tasks can be created directly from the dashboard with project, priority, and complexity fields filled in up front.
 
-<BrowserFrame src="/screenshots/task-ai-assist.png" alt="AI-assisted task creation breaking down goals into subtasks" />
+<BrowserFrame src="/screenshots/dashboard-detail.png" alt="Task detail view showing status, priority, description, and cancel action" />
 
 ## Task Lifecycle
 
@@ -32,15 +32,13 @@ The Kanban board is the primary interface for managing agent tasks. Tasks flow t
 | **Failed** | Agent encountered an error |
 | **Cancelled** | Manually stopped by the user |
 
-<BrowserFrame src="/screenshots/task-detail-panel.png" alt="Task detail panel showing full task information, status history, and execution logs" />
-
 ## How It Works
 
-Tasks are stored in the `tasks` table with a status field governed by valid transitions defined in `task-status.ts`. The execution manager picks up queued tasks and creates Agent SDK sessions. Status transitions are atomic and logged.
+Operators typically create tasks from the dashboard or from within a project. Once a task is queued, Stagent hands it to the execution layer, which applies the configured agent profile, logs runtime events, and surfaces permission requests when the agent needs approval.
 
-The fire-and-forget pattern means `POST /api/tasks/[id]/execute` returns HTTP 202 immediately — the agent runs asynchronously while you continue working.
+The task detail view is the control surface for one execution record. It is where you verify the task definition, confirm current state, and intervene when a run should be canceled or retried.
 
-<BrowserFrame src="/screenshots/task-create-panel.png" alt="Task creation panel with fields for title, description, priority, and complexity" />
+<BrowserFrame src="/screenshots/dashboard-create-form-filled.png" alt="Task creation form showing title, project, priority, and complexity fields" />
 
 ---
 
@@ -50,32 +48,25 @@ The fire-and-forget pattern means `POST /api/tasks/[id]/execute` returns HTTP 20
 
 **Product Team** · *Processing a backlog of pull requests*
 
-Twelve PRs landed overnight. You create a task for each, assign them to the code-reviewer agent profile, and drag the batch to Queued. The agent processes them sequentially — running static analysis, checking for security issues, and posting review comments. By the time your team logs on, every PR has detailed feedback waiting.
+Twelve PRs landed overnight. You create review tasks, filter the dashboard to the engineering project, and move work from planned to queued as the day opens. The board becomes the operating queue for the entire review pass.
 
 ### Research Decomposition
 
 **Knowledge Worker** · *Breaking down a complex analysis*
 
-You type "competitive landscape analysis for Q2 product strategy" into the AI-assisted task creator. Claude breaks it into five subtasks: identify competitors, gather pricing data, analyze feature gaps, summarize market trends, and draft recommendations. Each subtask gets appropriate complexity ratings and lands in Planned, ready for you to prioritize.
+You create a task for a competitive landscape analysis, set its project and priority, then let the assigned workflow or profile handle execution. The task record keeps the work grounded in one explicit brief rather than an unstructured chat thread.
 
 ### Daily Task Automation
 
 **Power User** · *Recurring maintenance tasks every morning*
 
-You keep a set of recurring tasks in Planned: lint the codebase, check for dependency updates, and generate a changelog. Each morning you drag them to Queued in order — the agent picks them up and runs them while you focus on feature work. Results appear in the side panel by the time you finish your coffee.
+Recurring schedules generate new tasks for the same set of morning checks. When you open the dashboard, the queued lane already contains the runs you need to review or start for the day.
 
 ### Delegating Without Technical Knowledge
 
 **Non-Technical User** · *Turning raw data into insights*
 
-You attach a CSV of customer feedback to a new task and describe what you need: "Find the main themes and summarize sentiment." The AI-assist suggests a pipeline — data cleaning, sentiment analysis, theme extraction, and summary generation — each as a separate subtask with clear descriptions you can understand and approve.
-
----
-
-## On the Roadmap
-
-- **Workflow Blueprints** *(Coming Soon)* — 8 pre-built task pipeline templates for common scenarios like code review, content publishing, and data analysis
-- **Agent Profile Catalog** *(Coming Soon)* — Auto-routing tasks to the best-fit agent profile based on task type and complexity
+You create a task against the right project, attach source documents, and let a specialized profile execute the work. The task remains a clear operational record that you can inspect later in the dashboard, project detail, or monitor.
 
 ---
 

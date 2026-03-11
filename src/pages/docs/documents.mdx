@@ -1,49 +1,44 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Document Management"
-description: "Upload, preprocess, and organize documents for agent consumption with table and grid views."
+title: "Documents"
+description: "Upload, browse, inspect, and link documents to projects and tasks inside Stagent."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
-# Document Management
+# Documents
 
-The document manager provides a dedicated interface for uploading, organizing, and preprocessing documents that agents can use as context during task execution.
+The document workspace keeps project files, uploaded references, and extracted content in one place. It is designed for operators who need to verify exactly what context an agent is using before or after execution.
 
-<BrowserFrame src="/screenshots/documents-table.png" alt="Documents table view showing uploaded files with metadata and status" />
+<BrowserFrame src="/screenshots/documents-list.png" alt="Documents list showing uploaded files with task, project, and extraction status" />
 
-<BrowserFrame src="/screenshots/document-upload-dialog.png" alt="Document upload dialog supporting multiple file formats" />
+<BrowserFrame src="/screenshots/documents-create-form-filled.png" alt="Document upload modal showing multi-file support and format badges" />
 
 ## Key Concepts
 
-- **Multi-Format Upload** — Support for text, PDF, images, Office documents (Word, PowerPoint), and spreadsheets (Excel, CSV)
-- **Text Extraction** — Automatic preprocessing extracts text content from uploaded files for agent consumption
-- **Table & Grid Views** — Switch between detailed table view and visual grid view for browsing documents
-- **Bulk Operations** — Select multiple documents for bulk delete or status updates
-- **Agent Context Building** — Documents are automatically prepared as context for agent tasks
+- **Multi-Format Upload** — Text files, PDFs, spreadsheets, office documents, and images can all enter the same document library.
+- **Status Visibility** — Extraction state is visible directly in the list so operators can spot failures before an agent depends on the file.
+- **List & Grid Views** — Table and card layouts support both metadata-heavy browsing and faster visual scanning.
+- **Linked Context** — Documents can remain associated with both a task and a project so the context chain stays explicit.
 
-<BrowserFrame src="/screenshots/documents-grid.png" alt="Documents grid view showing visual card layout" />
+<BrowserFrame src="/screenshots/documents-grid.png" alt="Documents grid view showing card-based file browsing" />
 
 ## Document Pipeline
 
-1. **Upload** — User uploads a file through the upload dialog
-2. **Store** — File saved to `~/.stagent/uploads/` with metadata in the `documents` table
-3. **Preprocess** — Text extraction runs for supported formats (PDF, Office, text)
-4. **Index** — Extracted text stored in `extractedText` column for fast retrieval
-5. **Serve** — Agent receives document context when executing related tasks
+1. **Upload** — Add one or more files to the workspace through the upload modal.
+2. **Associate** — Keep the document unassigned or link it to the task and project that need the file.
+3. **Extract** — Stagent prepares machine-readable content for formats that support extraction.
+4. **Review** — Operators inspect the extracted text and metadata before trusting the file in an execution run.
+5. **Reuse** — The same document can continue supporting future tasks, workflows, and project reviews.
 
-<BrowserFrame src="/screenshots/document-detail-pdf.png" alt="Document detail view showing PDF preview with extracted text and metadata" />
+<BrowserFrame src="/screenshots/documents-detail.png" alt="Document detail view showing extracted text, metadata, and linked task/project fields" />
 
-## Supported Formats
+## What the Detail View Adds
 
-| Format | Processor | Extraction |
-|--------|-----------|------------|
-| Text (`.txt`, `.md`, `.csv`) | Direct read | Full text |
-| PDF (`.pdf`) | pdf-parse v2 | Full text + metadata |
-| Images (`.png`, `.jpg`) | image-size | Dimensions + metadata |
-| Word (`.docx`) | mammoth | Full text |
-| PowerPoint (`.pptx`) | jszip | Slide text |
-| Excel (`.xlsx`) | xlsx | Cell data |
+- **Extracted Text Panel** — Review the machine-readable content that downstream agent steps will consume.
+- **Metadata Summary** — File type, size, processing status, and origin stay visible without leaving the record.
+- **Task & Project Links** — Navigate directly from a document to the operational work it supports.
+- **Preview Toggle** — Expand the preview area when you need to inspect more than the extracted text alone.
 
 ---
 
@@ -53,31 +48,24 @@ The document manager provides a dedicated interface for uploading, organizing, a
 
 **Product Team** · *Grounding agents in company-specific knowledge*
 
-You upload your team's wiki pages, API documentation, and architecture diagrams. When an agent processes onboarding tasks, it draws from this document context — producing guides that reference your actual endpoints, your naming conventions, and your team's workflow. No generic boilerplate, just grounded, company-specific content.
+You upload launch briefs, competitor audits, and API notes to one project. When workflows run, the supporting files are already visible, linked, and reviewable inside the same workspace.
 
 ### Contract Analysis
 
 **Knowledge Worker** · *Comparing terms across multiple vendor agreements*
 
-You upload 15 vendor contracts in PDF and DOCX formats. The text extraction pipeline processes each document, and the agent compares payment terms, SLA commitments, and auto-renewal clauses across all 15. The result is a structured comparison table with flagged risks — work that would take days done in minutes.
+You ingest a mix of PDFs and DOCX files, verify extraction results on each document detail page, and then run a workflow that compares terms without guessing what content was actually available to the agent.
 
 ### Personal Document Organization
 
 **Non-Technical User** · *Bringing order to a pile of paperwork*
 
-You upload a mix of receipts, insurance documents, and warranty cards. The agent extracts dates, amounts, and vendor names from each document using the text extraction pipeline, then organizes everything into a spreadsheet with categories, expiration dates, and totals. Your filing cabinet becomes a searchable, structured database.
-
----
-
-## On the Roadmap
-
-- **Document Output Generation** *(Coming Soon)* — Agents produce formatted PDFs, reports, and summaries as downloadable document artifacts
-- **Smart Document Selection** *(Coming Soon)* — Automatic relevance scoring so agents pull only the most pertinent documents for each task, reducing context noise
+You upload receipts, statements, and forms into a single library, then keep them linked to the task or project that depends on them. The document view becomes your filing system and verification surface at the same time.
 
 ---
 
 ## Related Features
 
 - [Agent Integration](/docs/agents) — How agents consume document context
-- [Project Management](/docs/projects) — Documents linked to projects
+- [Projects](/docs/projects) — Documents linked to active initiatives
 - [Settings](/docs/settings) — Upload and storage configuration

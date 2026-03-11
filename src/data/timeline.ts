@@ -194,15 +194,15 @@ export const timeline: TimelineItem[] = [
   {
     year: '2026',
     project: 'Stagent',
-    role: 'AI-powered task management platform',
+    role: 'Governed AI agent operations workspace',
     description:
-      'Building a control plane for AI agent tasks — a Next.js dashboard where Claude agents execute tasks with human-in-the-loop oversight. Features Kanban boards, real-time monitoring, workflow orchestration, and document management with local SQLite storage.',
+      'Building a local-first control plane for AI operations — a Next.js workspace with governed execution, reusable profiles, workflow blueprints, schedules, documents, monitoring, and a human-in-the-loop inbox.',
     achievements: [
-      'Shipped 21/30 features including workflow engine and document management',
-      'Built 12 specialized agent profiles with human-in-the-loop governance',
-      'Implemented real-time SSE monitoring with 132 test cases',
+      'Expanded the product into ten coordinated operator surfaces',
+      'Added reusable agent profiles, blueprint-driven workflows, and recurring schedules',
+      'Implemented human-in-the-loop governance with live monitoring and document-linked execution',
     ],
-    stats: '20K LOC · 132 tests · 21/30 features shipped',
+    stats: '20K LOC · 132 tests · local-first AI operations',
     techWave: 'The Harness Layer',
     techCategories: [
       { label: 'Frontend', items: ['Next.js 16', 'React 19', 'Tailwind v4', 'shadcn/ui'] },

@@ -1,11 +1,11 @@
 ---
 layout: ../layouts/ResearchLayout.astro
 title: "Stagent: The Coordination Layer for the Agentic Enterprise"
-description: "AI-powered task management: Architecture, governance, and the coordination layer for enterprise AI agent deployment."
+description: "Governed AI agent operations: architecture, reusable automation, and the coordination layer for enterprise AI deployment."
 datePublished: "2026-03-01"
-dateModified: "2026-03-09"
+dateModified: "2026-03-11"
 author: "Navam"
-readingTime: "20 min read"
+readingTime: "19 min read"
 ---
 
 import Figure from '../components/research/Figure.astro'
@@ -14,7 +14,6 @@ import SystemArchitecture from '../components/svg/SystemArchitecture.astro'
 import GovernanceFlow from '../components/svg/GovernanceFlow.astro'
 import MarketGrowth from '../components/svg/MarketGrowth.astro'
 import GovernanceMatrix from '../components/svg/GovernanceMatrix.astro'
-import FeatureVelocity from '../components/svg/FeatureVelocity.astro'
 import WaitlistForm from '../components/ui/WaitlistForm.astro'
 
 # Stagent: The Coordination Layer for the Agentic Enterprise
@@ -32,32 +31,30 @@ import WaitlistForm from '../components/ui/WaitlistForm.astro'
 3. [The Problem — Why Current Approaches Fail](#3-the-problem--why-current-approaches-fail)
 4. [Product Architecture](#4-product-architecture)
 5. [Competitive Differentiation](#5-competitive-differentiation)
-6. [Progress and Roadmap](#6-progress-and-roadmap)
+6. [Current Product Coverage & Roadmap](#6-current-product-coverage--roadmap)
 7. [Cross-Industry Use Cases](#7-cross-industry-use-cases)
 8. [Risk Analysis](#8-risk-analysis)
 9. [Investment Thesis](#9-investment-thesis)
 10. [Conclusion](#10-conclusion)
 - [Appendix A: Technical Glossary](#appendix-a-technical-glossary)
-- [Appendix B: Feature Inventory](#appendix-b-feature-inventory)
+- [Appendix B: Surface Inventory](#appendix-b-surface-inventory)
 - [Appendix C: Sources & References](#appendix-c-sources--references)
 
 ---
 
 ## 1. Executive Summary
 
-Stagent is the **coordination layer for the agentic enterprise** — an AI-powered task management platform where Claude agents execute tasks with human-in-the-loop oversight. In a market racing toward autonomous AI agents, Stagent occupies a critical gap: the governance and orchestration layer that makes enterprise adoption of agents safe, visible, and productive.
+Stagent is the **coordination layer for the agentic enterprise**: a local-first operations workspace where AI agents run inside a governed system of projects, workflows, documents, inbox approvals, profiles, schedules, and live monitoring.
 
-The thesis is simple. Every enterprise will deploy AI agents. Every agent will need a human who can see what it's doing, approve what it plans to do, and course-correct when it goes wrong. No serious enterprise will hand autonomous decision-making to an AI without oversight. Stagent provides that oversight through a UX paradigm every knowledge worker already understands — task boards, inboxes, and notification feeds. It is, in essence, **Jira for AI agents**.
+The thesis is simple. Every enterprise will deploy AI agents. But production adoption will be constrained less by model quality than by whether operators can see what the agent is doing, understand which rules it is following, reuse proven behaviors, and intervene before an unsafe action lands. Stagent is built for that operating problem.
 
-Three value propositions define Stagent's market position:
+Three value propositions define Stagent's current position:
 
-1. **Familiar UX** — Kanban boards, project management, and notification inboxes map directly to how teams already manage work. The learning curve is near-zero.
+1. **Operational familiarity** — Stagent presents agent work through surfaces teams already understand: a home workspace, execution dashboard, project views, document library, approval inbox, and live monitor.
+2. **Governed execution** — The human-in-the-loop model is not an afterthought. Tool requests, policy decisions, and intervention points are visible, auditable, and close to the work.
+3. **Reusable automation primitives** — Profiles, workflow blueprints, and schedules convert ad hoc prompting into repeatable operational systems.
 
-2. **Local-first data sovereignty** — Stagent runs on your infrastructure with a local SQLite database. No data leaves your premises. In an era of tightening regulation (EU AI Act effective August 2026), this is not a feature — it is a compliance prerequisite.
-
-3. **Native human-in-the-loop governance** — The Agent SDK's `canUseTool` callback is the central coordination mechanism. Every agent action can be intercepted, reviewed, and approved through a familiar inbox interface. Governance is the product, not a checkbox.
-
-As of March 2026, Stagent has shipped **21 features across 3 development days** — a pure Next.js app with agent integration, workflow orchestration, document management, and a full-featured browser-based UI.
+As of March 2026, the current browser product spans **ten coordinated operator surfaces**: Home, Dashboard, Projects, Workflows, Documents, Profiles, Schedules, Inbox, Monitor, and Settings. It is a full AI operations workspace rather than a narrow single-purpose execution screen.
 
 ---
 
@@ -83,34 +80,38 @@ The AI agent market is undergoing explosive growth. Multiple analyst firms conve
 
 ### The Governance Imperative
 
-The numbers tell a paradox. Two-thirds of organizations report productivity gains from AI agents, but fewer than a third convert those gains into measurable financial ROI. Gartner's prediction that over 40% of agentic AI projects will be canceled by 2027 due to governance failures reveals the core constraint: **the bottleneck is not the AI — it is the coordination between AI and humans**.
+The numbers reveal a paradox. Enterprises increasingly believe agents can produce output, but many still cannot convert those gains into durable operating leverage. The bottleneck is no longer access to a model. It is the ability to govern model behavior in real workflows.
 
-This governance gap is widening precisely as regulatory pressure intensifies. The EU AI Act takes full effect in August 2026, establishing the world's first comprehensive legal framework for AI systems. Organizations deploying agents without governance infrastructure face not just operational risk, but regulatory liability.
+This problem intensifies as regulatory pressure increases. The EU AI Act takes full effect in August 2026, and organizations deploying agents into real operational processes will need visible oversight, clear intervention paths, and better auditability than a chat log can provide.
 
-### The Anthropic Enterprise Agents Program
+### Why Coordination Becomes the Category
 
-In February 2026, Anthropic launched its enterprise agents program, signaling that the largest AI model provider sees enterprise agent deployment as a primary growth vector. The Claude Agent SDK provides the foundational building blocks — tool use, streaming, human-in-the-loop callbacks — but deliberately leaves the coordination and governance layer to the ecosystem. This is the layer Stagent occupies.
+Model vendors and agent SDKs provide execution primitives. Enterprises still need the layer that turns those primitives into a supervised operating system: where workflows can be reused, permissions can be approved, schedules can be audited, and profiles can be inspected. Stagent sits in that layer.
 
 ---
 
 ## 3. The Problem — Why Current Approaches Fail
 
-Enterprise teams attempting to deploy AI agents today face a trilemma. They can choose developer frameworks that offer power but no stakeholder visibility. They can choose SaaS platforms that offer visibility but create data sovereignty risks. Or they can choose agent operating systems that offer autonomy but insufficient governance. None of these approaches solve the full problem.
+Enterprise teams attempting to deploy AI agents today face a structural mismatch. The tools available tend to optimize for one of three goals, but rarely all three at once:
+
+- developer flexibility
+- user-facing visibility
+- governed, repeatable operations
 
 ### The Missing Layer
 
 | Capability | Dev Frameworks | Agent OS | SaaS Platforms | **Stagent** |
 |------------|:---:|:---:|:---:|:---:|
 | Agent execution | Strong | Strong | Moderate | Strong |
-| Stakeholder visibility | None | Dashboard | Good | **Native** |
-| Human-in-the-loop governance | Manual | Approval gates | Configurable | **Native** |
+| Human-in-the-loop governance | Manual | Partial | Configurable | **Native** |
+| Operational visibility | Logs | Dashboard | Good | **Native** |
+| Reusable agent profiles | DIY | Partial | Vendor-defined | **Operator-visible** |
+| Reusable workflow templates | DIY | Limited | Partial | **Built-in** |
+| Scheduled automation | DIY | Partial | Vendor-defined | **Built-in** |
 | Local-first data sovereignty | Yes | Yes | No | **Yes** |
 | Non-technical user access | No | Limited | Yes | **Yes** |
-| Familiar UX paradigm | No | No | Partial | **Yes** |
-| Audit trail | Logs | Merkle chain | Logs | **DB-native** |
-| Regulatory readiness | DIY | Partial | Vendor-dependent | **Built-in** |
 
-Stagent is the missing layer — the coordination platform that sits between the AI agent and the human organization, providing governance through a UX paradigm that every knowledge worker already understands.
+Stagent is the missing coordination layer. It sits between the raw agent runtime and the human organization, exposing AI work through operational surfaces humans can actually supervise.
 
 ---
 
@@ -118,13 +119,11 @@ Stagent is the missing layer — the coordination platform that sits between the
 
 ### Design Philosophy
 
-Stagent's architecture follows three principles drawn from Anthropic's "Building Effective Agents" guide:
+Stagent's architecture follows three principles:
 
-1. **Simplicity** — Start with simple agent designs; add complexity only when simpler solutions fall short. The database is SQLite, not PostgreSQL. The distribution is `npx stagent`, not a Kubernetes deployment.
-
-2. **Transparency** — Show the agent's work to the user. The monitoring dashboard streams agent reasoning and tool calls in real time.
-
-3. **Agent-Computer Interface (ACI)** — Stagent's `canUseTool` polling pattern provides a clean, reliable handoff mechanism between agent autonomy and human oversight.
+1. **Simplicity** — Prefer a local-first, legible stack over unnecessary infrastructure sprawl.
+2. **Transparency** — Every execution should be reviewable through product surfaces built for operators, not just developers.
+3. **Governed autonomy** — Let agents work at speed, but keep trust boundaries explicit and interruptible.
 
 ### System Architecture
 
@@ -132,49 +131,47 @@ Stagent's architecture follows three principles drawn from Anthropic's "Building
   <SystemArchitecture />
 </Figure>
 
-<Figure number={3} caption="Stagent Dashboard — Project Overview with Task Statistics">
-  <BrowserFrame src="/screenshots/home-dashboard.png" alt="Stagent dashboard showing project cards with task statistics and recent activity" />
+<Figure number={3} caption="Home Workspace — Overview of Running Work, Pending Review, and Live Activity">
+  <BrowserFrame src="/screenshots/home-list.png" alt="Home workspace showing summary metrics, tasks needing attention, and live agent activity" />
 </Figure>
 
 ### The canUseTool Governance Pattern
 
-The centerpiece of Stagent's architecture is the `canUseTool` polling pattern — the mechanism that transforms autonomous agent execution into governed agent execution.
+The centerpiece of Stagent's architecture remains the `canUseTool` pattern: the mechanism that converts autonomous execution into governed execution without hiding what the agent is doing.
 
 <Figure number={4} caption="canUseTool Governance Flow — 5-Step Human-in-the-Loop Cycle">
   <GovernanceFlow />
 </Figure>
 
-<Figure number={5} caption="Inbox Notifications — Human-in-the-Loop Approval Interface">
-  <BrowserFrame src="/screenshots/inbox-notifications.png" alt="Inbox showing agent permission requests awaiting human approval" />
+<Figure number={5} caption="Permissions Inbox — Explicit Approval Controls for Agent Tool Requests">
+  <BrowserFrame src="/screenshots/inbox-permissions.png" alt="Permissions inbox showing allow once, always allow, and deny actions" />
 </Figure>
 
-1. **Agent requests permission** — When the Claude agent wants to use a tool, the SDK calls the `canUseTool` callback.
-2. **Notification created** — Stagent writes a notification record to the database.
-3. **Human reviews in Inbox** — The notification appears in the user's Inbox — a familiar email-like interface.
-4. **Human responds** — The user clicks Allow or Deny. Their response is written back to the database.
-5. **Agent continues** — The polling loop detects the response and returns it to the Agent SDK.
+1. **Agent requests a tool** — The runtime reaches a trust boundary.
+2. **Inbox item is created** — Stagent records the request with enough detail for review.
+3. **Human reviews the action** — The operator decides whether the request is safe and appropriate.
+4. **Decision is written back** — Allow, always allow, or deny becomes part of the system state.
+5. **Execution resumes or stops** — The agent proceeds according to the human decision.
 
-This pattern uses the database as a message queue — a deliberately simple architecture that avoids the complexity of WebSockets or external message brokers while providing reliable, auditable human-agent coordination.
+### Reusable Automation Layer
 
-### Workflow Orchestration
+What changed materially in the current product is the addition of reusable automation primitives:
 
-Stagent ships three workflow patterns:
+- **Profiles** make instructions, tool policy, and runtime tuning inspectable and reusable.
+- **Workflow blueprints** reduce orchestration setup time by turning common operational patterns into templates.
+- **Schedules** let teams move from one-off prompting to recurring, guardrailed automation.
 
-| Pattern | How It Works | Enterprise Example |
-|---------|-------------|-------------------|
-| **Sequence** | Tasks execute in strict order. Each step's output feeds the next. | Research → Draft → Legal Review → Publish |
-| **Planner → Executor** | A planning agent breaks down a goal. Executors handle each step. | "Analyze Q1 financials" → extract → generate report |
-| **HITL Checkpoint** | Agent executes until a checkpoint, then pauses for human approval. | Draft email → **human approves** → send → log to CRM |
+These primitives matter because they turn a successful experiment into an operational practice. Without them, every agent run is effectively a bespoke interaction. With them, the organization begins building an operating system for repeated AI work.
 
 ### Technology Stack
 
 | Layer | Technology | Why |
 |-------|-----------|-----|
-| Framework | Next.js 16 + React 19 | Server Components for DB-direct queries |
-| Styling | Tailwind CSS v4 + shadcn/ui | Production-quality UI with consistent design |
-| Database | SQLite + Drizzle ORM (WAL mode) | Local-first, zero-config, concurrent reads |
-| Agent SDK | @anthropic-ai/claude-agent-sdk | Native Claude integration with canUseTool |
-| CLI | Commander + tsup | One command to install, migrate, and launch |
+| Framework | Next.js 16 + React 19 | Server-first rendering with a fast local operator experience |
+| Styling | Tailwind CSS v4 + shadcn/ui | Dense operational UI with consistent primitives |
+| Database | SQLite + Drizzle ORM | Local-first state, low setup cost, and audit-friendly persistence |
+| Agent Runtime | Claude Agent SDK | Embedded governed execution with tool-use callbacks |
+| Monitoring | SSE + structured runtime events | Live visibility without heavyweight infrastructure |
 
 ---
 
@@ -182,70 +179,77 @@ Stagent ships three workflow patterns:
 
 ### Positioning Matrix
 
-The agent platform market can be mapped along two axes: **agent autonomy** and **human governance**. Most platforms optimize for one at the expense of the other.
+The agent platform market can be mapped along two axes: **agent autonomy** and **human governance**. Most products still optimize for one at the expense of the other.
 
 <Figure number={6} caption="Competitive Positioning — Governance vs. Autonomy">
   <GovernanceMatrix />
 </Figure>
 
-Stagent occupies the **high-governance, high-autonomy** quadrant — the quadrant that enterprise buyers actually need.
+Stagent occupies the **high-governance, high-autonomy** quadrant: the space where enterprise buyers can let agents work, but still supervise them through operator-grade interfaces.
 
 ### Three Core Differentiators
 
-**1. Governance-First Architecture** — Security prevents unauthorized access. Governance ensures authorized actions are appropriate, visible, and auditable. Stagent's `canUseTool` pattern provides governance at the interaction level.
+**1. Governance-first architecture** — Stagent treats approval paths, policy visibility, and intervention surfaces as product fundamentals rather than enterprise add-ons.
 
-**2. Task Management UX** — Stagent maps to work management paradigms that billions of knowledge workers already understand. The Kanban board, the Inbox, the Monitor — all familiar patterns. No CLI, no developer console, no friction.
+**2. Operational workspace UX** — The product maps agent execution onto recognizable operating surfaces: home, dashboard, projects, inbox, monitor, and settings. This lowers organizational friction far more effectively than a chat-first interface.
 
-**3. Local-First Data Sovereignty** — Stagent's database lives at `~/.stagent/stagent.db` — a local SQLite file. No data transits to external servers. This is a regulatory strategy, not a philosophical preference.
+**3. Reusable AI operations layer** — Profiles, blueprints, and schedules convert successful runs into repeatable systems. This is a key step from experimentation to production discipline.
 
-<Figure number={7} caption="Task Management UX — Kanban Board with Status Columns">
-  <BrowserFrame src="/screenshots/kanban-board.png" alt="Kanban board with tasks organized across planned, running, and completed columns" />
+<Figure number={7} caption="Agent Profiles — Inspectable Instructions, Tool Policies, and Runtime Tuning">
+  <BrowserFrame src="/screenshots/profiles-detail.png" alt="Profile detail showing instructions, configuration, and tool policies" />
 </Figure>
 
 ---
 
-## 6. Progress and Roadmap
+## 6. Current Product Coverage & Roadmap
 
-### Development Timeline
+### Current Product Coverage
 
-Stagent has shipped 21 features across 3 development days:
+The March 2026 product now covers the core surfaces an operator needs to supervise AI work in practice:
 
-| Day | Date | Features | Cumulative |
-|-----|------|----------|-----------|
-| D1 | Mar 6 | Initial commit, project setup | 0 |
-| D2 | Mar 8 | Foundation, Core, Polish, Documents | 18 |
-| D3 | Mar 9 | Multi-agent routing, Micro-viz, Tool permissions | 21 |
+| Surface | What Ships Today |
+|---------|------------------|
+| **Home** | Workspace briefing with attention queue, metrics, and live activity |
+| **Dashboard** | Status-driven execution board for active work |
+| **Projects** | Portfolio organization and scoped execution context |
+| **Workflows** | Reusable orchestration with three core patterns |
+| **Documents** | Upload, extraction review, and linked context |
+| **Profiles** | Reusable specialist agents with explicit policy and tuning |
+| **Schedules** | Recurring and one-shot automation with guardrails |
+| **Inbox** | Permissions, questions, completions, and failures |
+| **Monitor** | Streaming runtime visibility and debugging |
+| **Settings** | Authentication, policy defaults, and data management |
 
-<Figure number={8} caption="Workflow Detail — Step Configuration and Execution Status">
-  <BrowserFrame src="/screenshots/workflow-detail.png" alt="Workflow detail view showing step configuration and execution status" />
+<Figure number={8} caption="Workflow Blueprints — Reusable Templates for Common Operating Patterns">
+  <BrowserFrame src="/screenshots/workflows-blueprints.png" alt="Workflow blueprint gallery showing reusable work and personal templates" />
 </Figure>
 
-<Figure number={9} caption="Feature Velocity by Day">
-  <FeatureVelocity />
+<Figure number={9} caption="Schedules — Recurring Automation with Timing, Profile, and Firing Controls">
+  <BrowserFrame src="/screenshots/schedules-detail.png" alt="Schedule detail showing prompt, next fire time, and firing history" />
 </Figure>
-
-Day 2 represents an explosive inflection — 18 features shipped in a single day, enabled by the foundational setup of Day 1 and Claude Code's agentic development velocity. This acceleration pattern demonstrates how AI-assisted development compresses what traditionally takes weeks into hours.
 
 ### Three-Horizon Roadmap
 
-| Horizon | Timeline | Focus | Key Features |
-|---------|----------|-------|-------------|
-| **H1** | Q2 2026 | Document Intelligence | Document output generation, parallel workflows |
-| **H2** | Q3 2026 | Agent Intelligence | Multi-agent routing, autonomous loops, swarm |
-| **H3** | Q4 2026 | Platform | Desktop app, agent self-improvement, marketplace |
+| Horizon | Timeline | Focus | Key Direction |
+|---------|----------|-------|---------------|
+| **H1** | Q2 2026 | Trust Administration | Richer policy tiers, delegated approvals, exportable audit views |
+| **H2** | Q3 2026 | Automation Depth | More blueprints, richer schedule triggers, output artifact generation |
+| **H3** | Q4 2026 | Distribution | Desktop packaging, broader team workflows, ecosystem expansion |
+
+The strategic pattern is clear: Stagent is moving from governed execution toward governed operations.
 
 ---
 
 ## 7. Cross-Industry Use Cases
 
-| Industry | Use Case | Workflow Pattern | HITL Checkpoint |
-|----------|---------|-----------------|-----------------|
-| **Software Engineering** | Code review, bug triage, test generation | Planner → Executor | Approve changes before merge |
-| **Legal** | Contract analysis, due diligence, compliance | Sequence | Approve findings before delivery |
-| **Marketing** | Campaign creation, content generation | Planner → Executor | Approve creative before publication |
-| **Finance** | Financial modeling, audit preparation | Sequence + Checkpoints | Approve calculations before reports |
-| **HR** | Job descriptions, resume screening, policy | Sequence | Approve shortlists before outreach |
-| **Research** | Literature review, data analysis, reports | Planner → Executor | Approve methodology before execution |
+| Industry | Use Case | Core Surface Mix | HITL Checkpoint |
+|----------|---------|------------------|-----------------|
+| **Software Engineering** | Code review, release checks, documentation generation | Workflows + Profiles + Inbox + Monitor | Approve publish or merge actions |
+| **Finance** | Portfolio analysis, daily digests, recurring watchlists | Schedules + Documents + Dashboard | Approve recommendations before execution |
+| **Legal** | Contract analysis, due diligence, clause comparison | Documents + Workflows + Inbox | Approve findings before delivery |
+| **Marketing** | Campaign audits, content variants, CTA experiments | Projects + Workflows + Schedules | Approve creative before shipping |
+| **Operations** | Support triage, reporting, escalations | Profiles + Dashboard + Inbox | Approve external write actions |
+| **Personal Productivity** | Travel planning, meal planning, tax prep | Projects + Blueprints + Schedules | Review final recommendations |
 
 ---
 
@@ -253,12 +257,12 @@ Day 2 represents an explosive inflection — 18 features shipped in a single day
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|:---:|:---:|------------|
-| Claude SDK vendor dependency | Medium | High | Architecture abstracts agent layer; multi-model routing in roadmap |
-| Regulatory environment shifts | Medium | Medium | Local-first architecture is inherently regulation-friendly |
-| Governance model bypassed | Low | Critical | canUseTool is the execution path — no "skip oversight" mode |
-| Competition from incumbents | High | Medium | Retrofitting governance onto existing task management is harder than building governance-first |
-| Scaling beyond SQLite | Medium | Low | WAL mode handles significant load; Drizzle ORM enables database-agnostic migration |
-| Agent hallucination | High | Medium | HITL checkpoints catch errors; session resume enables recovery |
+| Claude SDK vendor dependency | Medium | High | Stagent’s product layer abstracts orchestration, policy, and visibility from the underlying runtime |
+| Governance fatigue | Medium | Medium | Approval patterns, focused inbox tabs, and policy tuning reduce noise without removing control |
+| Automation sprawl | Medium | Medium | Profiles, schedules, and blueprints remain inspectable in dedicated surfaces instead of hiding inside scripts |
+| Regulatory shifts | Medium | Medium | Local-first architecture and operator-visible intervention paths remain advantageous under tighter oversight rules |
+| Market competition | High | Medium | Coordination UX plus reusable operational primitives create a differentiated product layer |
+| Misconfigured profiles or schedules | Medium | Medium | Explicit detail views and operator-facing controls make risky configuration inspectable before execution |
 
 ---
 
@@ -266,25 +270,21 @@ Day 2 represents an explosive inflection — 18 features shipped in a single day
 
 Five pillars support the case for Stagent:
 
-1. **Market Timing** — $7.63B growing at 46.3% CAGR. Governance infrastructure is the chokepoint for enterprise agent adoption.
-
-2. **Governance Moat** — Architecture, not a feature. The `canUseTool` pattern, notification-as-queue design, and DB-native audit trail create a governance model that cannot be replicated by bolting oversight onto existing frameworks.
-
-3. **Category Creation** — "Jira for AI agents" is a new category. First-mover advantage in category creation is well-documented.
-
-4. **Regulatory Readiness** — The EU AI Act (August 2026) is a present tailwind. Compliance drives adoption rather than hindering it.
-
-5. **Execution Velocity** — 21 features across 3 days demonstrates both velocity and architectural soundness.
+1. **Market timing** — AI agent adoption is accelerating, but governance remains the gating problem.
+2. **Governance moat** — Approval paths, visibility surfaces, and trust boundaries are baked into the operating model.
+3. **Category creation** — Stagent is building a recognizable AI operations workspace, not just another framework or chatbot shell.
+4. **Reusable automation advantage** — Profiles, blueprints, and schedules turn successful experiments into repeatable organizational process.
+5. **Execution breadth** — The current product already spans more than ten interlocking operator surfaces in a coherent local-first system.
 
 ---
 
 ## 10. Conclusion
 
-The agentic enterprise is not a prediction — it is a reality already unfolding. Organizations are deploying AI agents, discovering their power, and hitting the governance wall.
+The agentic enterprise is not blocked on access to models. It is blocked on operating discipline.
 
-Stagent is building the coordination layer — governance-first, local-first, and designed for the people who actually need to supervise AI agents: the knowledge workers, the managers, the compliance officers, and the executives who are accountable for what the agents do.
+Organizations need a way to let agents work while preserving visibility, intervention, reuse, and trust. That means more than a task queue. It requires a coordinated workspace where dashboards, projects, documents, profiles, schedules, approvals, and live monitoring all reinforce one another.
 
-The coordination layer for the agentic enterprise is not a chatbot interface. It is not a developer framework. It is not a terminal. It is a task board with an inbox and a monitoring dashboard — the same tools humans have used to manage work for decades, rebuilt for a world where the workers are AI agents and the humans are supervisors.
+That is what Stagent is becoming: the governed AI operations layer for teams that want real agent leverage without surrendering control.
 
 **Stagent is that coordination layer.**
 
@@ -301,44 +301,30 @@ The coordination layer for the agentic enterprise is not a chatbot interface. It
 
 | Term | Definition |
 |------|-----------|
-| **Agent SDK** | Anthropic's Claude Agent SDK — a TypeScript library for running Claude Code as an embedded agent with programmatic tool permissions. |
-| **canUseTool** | A callback invoked every time the agent attempts to use a tool. Returns `allow` or `deny` for real-time human oversight. |
-| **Drizzle ORM** | TypeScript-first ORM for type-safe database queries with SQLite. |
-| **Fire-and-forget** | API returns HTTP 202 immediately; agent runs asynchronously. |
-| **HITL** | Human-in-the-loop — requiring explicit human approval at defined checkpoints. |
-| **MCP** | Model Context Protocol — open standard for connecting AI to external tools. |
-| **SSE** | Server-Sent Events — real-time streaming for the monitoring dashboard. |
-| **SQLite WAL** | Write-Ahead Logging enabling concurrent reads during agent writes. |
+| **Agent SDK** | Runtime layer used to execute Claude-backed agent sessions with tool use and callbacks. |
+| **Blueprint** | Preconfigured workflow template that bootstraps a new multi-step automation. |
+| **canUseTool** | Callback invoked when the runtime reaches a tool-use trust boundary. |
+| **Drizzle ORM** | TypeScript-first ORM used for local database access. |
+| **HITL** | Human-in-the-loop decision point requiring explicit operator approval or input. |
+| **Profile** | Reusable agent definition containing instructions, tool policy, and tuning settings. |
+| **Schedule** | Recurring or one-shot automation record that generates work on a cadence. |
+| **SSE** | Server-Sent Events used for live monitor streaming. |
+| **SQLite WAL** | Write-Ahead Logging mode supporting concurrent reads in a local database. |
 
-## Appendix B: Feature Inventory
+## Appendix B: Surface Inventory
 
-### MVP Features (14) — All Completed
-
-| # | Feature | Sprint | Category |
-|---|---------|--------|----------|
-| 1 | CLI Bootstrap | S1 | Foundation |
-| 2 | Database Schema | S1 | Foundation |
-| 3 | App Shell | S1 | Foundation |
-| 4 | Project Management | S2 | Core |
-| 5 | Task Board (Kanban) | S2 | Core |
-| 6 | Agent Integration (canUseTool) | S3 | Core |
-| 7 | Inbox Notifications (HITL) | S4 | Core |
-| 8 | Monitoring Dashboard (SSE) | S4 | Core |
-| 9 | Homepage Dashboard | S5 | Polish |
-| 10 | UX Gap Fixes | S5 | Polish |
-| 11 | Task Definition AI | S5 | Polish |
-| 12 | Workflow Engine (3 patterns) | S5 | Polish |
-| 13 | Content Handling | S5 | Polish |
-| 14 | Session Management | S5 | Polish |
-
-### Post-MVP Features (4) — Completed
-
-| # | Feature | Sprint | Category |
-|---|---------|--------|----------|
-| 15 | File Attachment Data Layer | S6 | Documents |
-| 16 | Document Preprocessing | S6 | Documents |
-| 17 | Agent Document Context | S6 | Documents |
-| 18 | Document Manager UI | S7 | Documents |
+| Surface | Purpose | Representative Outcome |
+|---------|---------|------------------------|
+| **Home** | Summarize workspace health and immediate priorities | Faster daily triage |
+| **Dashboard** | Manage task execution states | Clear operating queue |
+| **Projects** | Organize work by initiative | Shared context per effort |
+| **Workflows** | Reuse multi-step orchestration | Repeatable operational process |
+| **Documents** | Ground execution in uploaded files | Verifiable source context |
+| **Profiles** | Reuse specialist behavior and policy | More consistent agent behavior |
+| **Schedules** | Trigger recurring automation | Proactive operations |
+| **Inbox** | Review permissions and questions | Governed execution |
+| **Monitor** | Observe live runtime activity | Faster debugging and trust-building |
+| **Settings** | Configure auth, policy defaults, and reset controls | Centralized operational control |
 
 ## Appendix C: Sources & References
 
@@ -346,12 +332,11 @@ The coordination layer for the agentic enterprise is not a chatbot interface. It
 |--------|-----------|
 | Grand View Research | AI agent market $7.63B (2025), $52.62B (2030), 46.3% CAGR |
 | Gartner | 40% enterprise apps embed agents by 2026; >40% agentic projects canceled by 2027 |
-| Forrester | 30% of vendors launch MCP servers by end of 2026 |
 | Deloitte | 66% of organizations report AI productivity gains |
 | IDC | 20–30% convert AI gains to financial ROI |
-| Anthropic | "Building Effective Agents" guide; Claude Agent SDK; Enterprise Agents Program (Feb 2026) |
+| Anthropic | Claude Agent SDK and enterprise agent workflows |
 | EU AI Act | Effective August 2026 — human oversight requirements for high-risk AI |
 
 ---
 
-*This paper was prepared with data current as of March 2026. Product features reflect Sprint 7.*
+*This paper was updated on March 11, 2026. Product coverage reflects the current browser workspace, including profiles, schedules, and blueprint-driven workflows.*

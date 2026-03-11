@@ -1,26 +1,26 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Workflow Engine"
-description: "Sequential, planner-executor, and checkpoint workflow patterns for multi-step agent automation."
+title: "Workflows"
+description: "Reusable multi-step automations, blueprint templates, and governed workflow orchestration in Stagent."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
-# Workflow Engine
+# Workflows
 
-The workflow engine chains tasks into automated multi-step workflows. Three patterns cover the most common enterprise agent use cases.
+Workflows are how Stagent turns one-off tasks into repeatable, multi-step operational playbooks. The product now includes both a workflow library and a blueprint catalog for bootstrapping new flows quickly.
 
-<BrowserFrame src="/screenshots/workflows-list.png" alt="Workflows list showing configured automation pipelines" />
+<BrowserFrame src="/screenshots/workflows-list.png" alt="Workflows list showing active, completed, and paused workflows" />
 
 ## Workflow Patterns
 
-### 1. Sequence (Prompt Chaining)
+### 1. Sequence
 
 Tasks execute in strict order. Each step's output feeds the next. Gate checks between steps ensure quality before proceeding.
 
 **Example**: Research → Draft → Legal Review → Publish
 
-### 2. Planner → Executor (Orchestrator-Workers)
+### 2. Planner → Executor
 
 A planning agent breaks down a goal into steps. Executor agents handle each step independently. Results roll up to the planner for synthesis.
 
@@ -32,22 +32,24 @@ Agent executes autonomously until it reaches a defined checkpoint, then pauses f
 
 **Example**: Draft client email → **human approves** → send email → log to CRM
 
-<BrowserFrame src="/screenshots/workflow-detail.png" alt="Workflow detail view showing step configuration and execution status" />
+<BrowserFrame src="/screenshots/workflows-blueprints.png" alt="Workflow blueprint gallery showing reusable work and personal templates" />
 
 ## Key Concepts
 
-- **JSON Workflow Definitions** — Workflows are defined declaratively with steps, dependencies, and gate conditions
-- **Composable Patterns** — A Sequence workflow can include Checkpoint steps. A Planner-Executor can require human approval at critical junctures
-- **Status-Driven Transitions** — The workflow engine uses task status changes to trigger the next step
-- **Checkpoint & Resume** — Workflows pause at checkpoints and resume when the human responds
+- **Workflow Library** — The main list shows each workflow’s pattern, status, step count, and duplication controls.
+- **Blueprint Catalog** — Operators can start from pre-built templates for code review, documentation, research, sprint planning, meal planning, and more.
+- **Profile-Aware Steps** — Each workflow step can reference an agent profile so specialist behavior is reused consistently.
+- **Checkpoint & Resume** — Human-in-the-loop workflows pause naturally at approval points and resume when the operator responds.
 
 ## How It Works
 
-Workflow definitions are stored in the `workflows` table as JSON. The workflow engine (`src/lib/workflows/engine.ts`) interprets these definitions and orchestrates task execution through the execution manager.
+Blueprints are the fastest way to launch a new workflow. Operators can choose a template, adapt the prompt or profile bindings, and create a runnable workflow without rebuilding the structure manually.
 
-Each workflow step creates a task in the `tasks` table. Step transitions are triggered by status changes — when a task completes, the engine checks the workflow definition for the next step and creates it.
+Once a workflow exists, the detail view exposes its exact step sequence. This is where Stagent makes orchestration legible: you can inspect prompts, identify checkpoints, and understand how work will proceed before any agent runs.
 
-<BrowserFrame src="/screenshots/workflow-create-dialog.png" alt="Workflow creation dialog with pattern selection and step configuration" />
+<BrowserFrame src="/screenshots/workflows-detail.png" alt="Workflow detail view showing ordered steps and checkpoint badges" />
+
+<BrowserFrame src="/screenshots/workflows-create-form-filled.png" alt="Workflow creation form showing identity, pattern, project, and step prompts" />
 
 ---
 
@@ -57,38 +59,30 @@ Each workflow step creates a task in the `tasks` table. Step transitions are tri
 
 **Product Team** · *Automating the full review cycle with safety gates*
 
-You define a Sequence workflow: pull latest changes → run static analysis → execute security scan → **checkpoint for tech lead review** → post review comments to the PR. The checkpoint ensures no automated comments go live without human eyes on the security scan results. One workflow replaces four manual handoffs.
+You launch a blueprint-backed workflow that audits a PR, drafts findings, pauses for review, and then posts the approved summary. The checkpoint keeps the process fast without dropping human accountability.
 
 ### Investment Research Report
 
 **Knowledge Worker** · *Using Planner-Executor for structured analysis*
 
-You create a Planner-Executor workflow with the goal "Analyze NVIDIA Q4 earnings impact on portfolio." The planner agent breaks this into five executor steps: gather earnings data, compare against estimates, analyze guidance, assess sector impact, and draft a recommendation. Each executor runs independently, and the planner synthesizes results into a coherent report.
+A planner-executor workflow collects company filings, compares guidance, and drafts a recommendation. The structure makes a complex analysis reproducible instead of depending on a single long prompt.
 
 ### Sprint Planning Automation
 
 **Developer** · *Combining sequence steps with human checkpoints*
 
-Your workflow parses the previous sprint's task data → calculates velocity metrics → drafts next sprint's task breakdown → **pauses for PM review**. The PM reviews the generated tasks, adjusts priorities, and approves. The workflow resumes and creates the tasks in the project board — turning a 2-hour planning meeting into a 10-minute review.
+You start from the sprint-planning blueprint, adjust the prompt for your team’s cadence, and let the workflow draft next sprint work before pausing for PM review. The workflow becomes an operator-facing planning assistant rather than a hidden automation.
 
 ### Meal Planning for the Week
 
 **Non-Technical User** · *Personal automation with a review step*
 
-You set up a simple Sequence workflow: gather dietary preferences → search for recipes → generate a 7-day meal plan → compile a shopping list → **checkpoint for your review**. You scan the plan, swap out Tuesday's dinner, approve, and the final shopping list is ready. The checkpoint ensures the AI's suggestions match what you'll actually cook.
-
----
-
-## On the Roadmap
-
-- **Workflow Blueprints** *(Coming Soon)* — 8 pre-built templates for common patterns like code review pipelines, content publishing, research reports, and data processing
-- **Parallel Workflows** *(Coming Soon)* — Run independent workflow branches simultaneously, merging results at a synchronization point
-- **Autonomous Loop Execution** *(Coming Soon)* — Workflows that run continuously with configurable trust tiers, only pausing at checkpoints for critical decisions
+You choose a personal meal-planning blueprint, tweak the prompt for dietary constraints, and keep one checkpoint before shopping. The workflow handles repetition while you retain the final decision.
 
 ---
 
 ## Related Features
 
-- [Task Management](/docs/tasks) — Individual tasks within workflows
-- [Agent Integration](/docs/agents) — How agents execute workflow steps
+- [Task Execution](/docs/tasks) — Individual execution records created by workflow steps
+- [Profiles](/docs/profiles) — Reusable specialist behavior for each workflow step
 - [Human-in-the-Loop](/docs/inbox) — Checkpoint approval requests

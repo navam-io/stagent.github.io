@@ -1,31 +1,33 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Project Management"
-description: "Create, organize, and track projects as top-level organizational units in Stagent."
+title: "Projects"
+description: "Portfolio-level organization, project-scoped execution, and working-context management in Stagent."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
-# Project Management
+# Projects
 
-Projects are the top-level organizational unit in Stagent. Each project contains tasks, documents, and configuration — everything needed for a complete body of work.
+Projects are the top-level containers for work in Stagent. They group tasks, workflows, schedules, and documents around one initiative so the system can reason about context without losing operator visibility.
 
 <BrowserFrame src="/screenshots/projects-list.png" alt="Projects list showing active projects with task counts" />
 
 ## Key Concepts
 
-- **Project Cards** — Card-based overview showing status indicators, task counts, and descriptions
-- **Project Detail** — Drill into any project for its full task board, document attachments, and settings
-- **Status Tracking** — Projects track aggregate progress across all contained tasks
-- **REST API** — Full CRUD via `/api/projects/[id]` for programmatic access
+- **Project Cards** — The list view summarizes each initiative with a short description, task count, and status badge.
+- **Scoped Execution** — Opening a project narrows the operational view to the work, metrics, and status breakdown for that initiative.
+- **Optional Working Directory** — Project creation can include a local working directory so agent tasks run in the right context by default.
+- **Cross-Surface Context** — Documents, tasks, workflows, and schedules can all reference the same project record.
 
-<BrowserFrame src="/screenshots/project-detail.png" alt="Project detail view showing task board and document attachments" />
+<BrowserFrame src="/screenshots/projects-detail.png" alt="Project detail view showing summary metrics, progress strip, and project task list" />
 
 ## How It Works
 
-Projects use Server Components for read operations — the project list page queries the database directly with Drizzle ORM. Mutations (create, update, delete) go through API routes for proper validation.
+The projects list is the portfolio view. It helps operators decide where attention should go next by showing which initiatives are active, which are complete, and how much work sits under each one.
 
-Each project has a unique ID generated via `crypto.randomUUID()`. Task counts are computed via left joins with the tasks table, grouped by status.
+The detail view then becomes the operational summary for one project. Status cards expose task distribution, the progress strip shows recent completions, and the task list keeps the underlying execution queue accessible.
+
+<BrowserFrame src="/screenshots/projects-create-form-filled.png" alt="Project creation form showing name, description, and working directory" />
 
 ---
 
@@ -35,31 +37,24 @@ Each project has a unique ID generated via `crypto.randomUUID()`. Task counts ar
 
 **Product Team** · *Coordinating a cross-functional release*
 
-Your product launch has 30+ tasks spanning content creation, documentation updates, and QA testing. You create a single project, attach brand guidelines and API specs as documents, and organize tasks by sprint. The project card on the dashboard shows aggregate progress — 18 completed, 8 running, 4 planned — giving stakeholders a single number to track.
+Your product launch spans content, documentation, QA, and launch analytics. One project holds the shared context while tasks, workflows, and documents all link back to the same operational record.
 
 ### Personal Finance Organization
 
 **Non-Technical User** · *Preparing for tax season*
 
-You create a "Tax Prep 2025" project and upload W-2s, 1099s, and mortgage interest statements. Each tax section becomes a task — wages, investments, deductions, credits. The agent processes documents against each task, extracting relevant figures and flagging missing forms. Everything lives in one place instead of scattered across folders.
+You create a tax prep project, attach documents, and spin up schedules that remind you to chase missing forms. Instead of spreading the work across spreadsheets, email drafts, and notes, the entire job stays anchored to one project.
 
 ### Client Engagement Tracking
 
 **Knowledge Worker** · *Managing deliverables across multiple clients*
 
-Each client gets their own project with tasks for active deliverables. You use the REST API (`/api/projects/[id]`) to pull project status into your weekly client report — task counts by status translate directly into progress percentages. When a client asks "where are we?", the answer is one API call away.
-
----
-
-## On the Roadmap
-
-- **Project-Level Agent Defaults** *(Coming Soon)* — Assign a default agent profile to a project so all new tasks inherit the right configuration automatically
-- **Parallel Workflows** *(Coming Soon)* — Run multiple workflow branches within a project simultaneously, with dependency-aware scheduling
+Each client gets a dedicated project with its own queue, documents, and workflows. The project detail page gives you a clean operational snapshot before a client call without requiring you to scan the entire workspace.
 
 ---
 
 ## Related Features
 
-- [Dashboard](/docs/dashboard) — Project cards on the homepage
-- [Task Management](/docs/tasks) — Task board scoped to a project
+- [Home & Dashboard](/docs/dashboard) — Workspace-level entry points into projects
+- [Task Execution](/docs/tasks) — The task lifecycle inside each project
 - [Documents](/docs/documents) — Documents linked to projects

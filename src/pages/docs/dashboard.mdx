@@ -1,31 +1,33 @@
 ---
 layout: ../../layouts/DocsLayout.astro
-title: "Dashboard & Homepage"
-description: "Project overview, task statistics, recent activity, and quick actions on the Stagent homepage."
+title: "Home & Dashboard"
+description: "Workspace briefing, execution lanes, task detail, and live operational signals across Stagent."
 ---
 
 import BrowserFrame from '../../components/ui/BrowserFrame.astro'
 
-# Dashboard & Homepage
+# Home & Dashboard
 
-The homepage provides a bird's-eye view of your entire Stagent workspace — surfacing key metrics, priority tasks, recent activity, and quick actions.
+Stagent uses two complementary workspace views. The **home screen** is the operational briefing for the entire workspace, while the **dashboard** is the active execution board for tasks moving through the system.
 
-<BrowserFrame src="/screenshots/home-dashboard.png" alt="Stagent dashboard showing project overview with task statistics" />
+<BrowserFrame src="/screenshots/home-list.png" alt="Home workspace showing summary metrics, tasks needing attention, and live agent activity" />
 
 ## Key Concepts
 
-- **Contextual Greeting** — Time-based salutation with live database counts (running tasks, awaiting review, failed tasks)
-- **Project Cards** — Each project shows task counts by status, with quick-access links to the Kanban board
-- **Recent Activity** — Real-time feed of the latest agent actions, task completions, and notifications
-- **Quick Actions** — One-click buttons for common operations: create project, add task, view inbox
+- **Workspace Briefing** — The opening view summarizes running work, items awaiting review, failed tasks, and active projects.
+- **Needs Attention Queue** — Priority work that deserves immediate operator input is pulled into a dedicated list instead of being buried in a general board.
+- **Live Agent Activity** — The home view shows a compact, recent event stream so you can spot active executions without switching to the monitor.
+- **Execution Dashboard** — The dashboard groups tasks by state so you can manage work across multiple projects from one operational surface.
 
-<BrowserFrame src="/screenshots/project-detail.png" alt="Project detail view accessible from dashboard project cards" />
+<BrowserFrame src="/screenshots/dashboard-list.png" alt="Dashboard board showing tasks organized by status across multiple projects" />
 
 ## How It Works
 
-The dashboard uses React Server Components to query the SQLite database directly — no API calls needed for reads. This means the page loads with real data immediately, no loading spinners.
+The home screen rolls up workspace-wide signals into a concise daily briefing. From there, operators can jump to the dashboard, inbox, monitor, or individual project records depending on what needs action.
 
-Each project card aggregates task counts from the `tasks` table, grouped by status. Running task counts update on page refresh as agents complete work.
+The dashboard focuses on execution flow. Status lanes expose planned, queued, running, completed, and failed work, while project and status filters make it easy to isolate one initiative or review everything at once.
+
+<BrowserFrame src="/screenshots/dashboard-detail.png" alt="Task detail view showing status, priority, description, and cancel action" />
 
 ---
 
@@ -35,31 +37,24 @@ Each project card aggregates task counts from the `tasks` table, grouped by stat
 
 **Product Team** · *Team lead opening Stagent at 9 AM*
 
-Your overnight agents processed pull requests, ran regression tests, and flagged two failed deployments. The dashboard greeting shows "3 running, 2 awaiting review, 1 failed" — you click through to the failed task, see the error context, and reassign it before the standup even starts.
+Your overnight agents processed pull requests, updated documents, and queued two approvals. The home screen immediately shows what is running, what needs review, and which projects are active before anyone opens Slack.
 
 ### Personal Project Portfolio
 
 **Non-Technical User** · *Managing three personal projects simultaneously*
 
-You're tracking a home renovation, an investment portfolio rebalance, and a vacation itinerary. Each project card shows overnight activity — the renovation agent found three contractor quotes, the investment agent flagged a rebalancing opportunity, and the vacation agent completed flight comparisons. One glance, three projects, zero context switching.
+You are tracking a tax prep workflow, a portfolio review, and a SaaS marketing push. The home workspace gives a single overview, then the dashboard lets you work the task queue without context switching between separate tools.
 
 ### Sprint Health Check
 
 **Developer** · *Checking task throughput mid-sprint*
 
-You notice the Queued column count is climbing — five tasks are stuck waiting for permission approvals. A quick click through to the Inbox reveals they're all blocked on a `git push` permission wall. You batch-approve the safe ones and get the pipeline flowing again.
-
----
-
-## On the Roadmap
-
-- **Micro-Visualizations** *(Coming Soon)* — Sparkline charts on project cards showing task completion velocity over the past 7 days
-- **Multi-Agent Routing** *(Coming Soon)* — Agent profile badges on dashboard cards, showing which specialized agent is assigned to each project
+You notice the queued column is growing while completed work stalls. A quick drill into the dashboard identifies the exact tasks that are blocked, and the task detail view makes it easy to cancel, requeue, or inspect one item without losing the broader board context.
 
 ---
 
 ## Related Features
 
-- [Task Management](/docs/tasks) — Kanban board linked from project cards
-- [Project Management](/docs/projects) — Full project CRUD operations
-- [Monitoring](/docs/monitoring) — Real-time agent activity detail
+- [Task Execution](/docs/tasks) — Task detail, lifecycle, and creation flows
+- [Projects](/docs/projects) — Project-scoped execution and summaries
+- [Monitoring](/docs/monitoring) — Deep log-level visibility into active runs
