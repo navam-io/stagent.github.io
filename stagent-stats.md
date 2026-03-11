@@ -48,3 +48,43 @@
 - Rust LOC includes inline `#[cfg(test)]` test modules
 - TypeScript production = `src/` + `sidecar/src/` minus test files
 - TypeScript tests = `src/test/` + `sidecar/src/__tests__/` + `e2e/`
+
+---
+
+## [2026-03-09 18:00] Metrics Snapshot — Next.js Rewrite
+
+| Category | Metric | Value |
+|----------|--------|-------|
+| LOC | Production | 18,423 |
+| LOC | Tests | 1,580 |
+| LOC | **Total** | **20,003** |
+| Tests | Vitest | 132 |
+| Tests | **Total** | **132** |
+| Git | Commits | 22 |
+| Git | Days elapsed | 3 |
+| Git | Commits/day | 7.2 |
+| Git | LOC/day | 6,575 |
+| Features | Completed | 21/30 |
+| Infra | API routes | 32 |
+| Infra | DB tables | 8 |
+| Infra | UI components | 91 |
+| Infra | Pages | 12 |
+| Infra | Agent profiles | 12 |
+
+### Per-Day Feature Velocity
+- Day 1 (Mar 6): 0 features (initial commit/setup)
+- Day 2 (Mar 8): 18 features shipped (MVP + polish + documents)
+- Day 3 (Mar 9): 3 features shipped (agent intelligence + platform)
+
+### Trend (vs previous snapshot — Tauri → Next.js rewrite)
+- ↑ +3,207 LOC (16,796 → 20,003)
+- ↓ -289 tests (421 → 132) — architecture rewrite, Rust/Playwright tests removed
+- ↑ +11 features completed (10/37 → 21/30)
+- ↑ +75 UI components (16 → 91)
+- ↓ -3 DB tables (11 → 8) — simplified schema
+- New: 32 API routes, 12 agent profiles, 12 pages
+
+### Notes
+- Complete rewrite from Tauri (Rust + TypeScript) to pure Next.js 16
+- LOC/day velocity of 6,575 reflects AI-assisted development with Claude Code
+- Feature count methodology changed: "intents" → "features" with new scope (30 total)

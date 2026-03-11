@@ -198,11 +198,11 @@ export const timeline: TimelineItem[] = [
     description:
       'Building a control plane for AI agent tasks — a Next.js dashboard where Claude agents execute tasks with human-in-the-loop oversight. Features Kanban boards, real-time monitoring, workflow orchestration, and document management with local SQLite storage.',
     achievements: [
-      'Shipped 19/28 features including workflow engine and document management',
-      'Built 4 specialized agent profiles with human-in-the-loop governance',
-      'Implemented real-time SSE monitoring with 124 test cases across 27 suites',
+      'Shipped 21/30 features including workflow engine and document management',
+      'Built 12 specialized agent profiles with human-in-the-loop governance',
+      'Implemented real-time SSE monitoring with 132 test cases',
     ],
-    stats: '15.2K LOC · 124 tests · 19/28 features shipped',
+    stats: '20K LOC · 132 tests · 21/30 features shipped',
     techWave: 'The Harness Layer',
     techCategories: [
       { label: 'Frontend', items: ['Next.js 16', 'React 19', 'Tailwind v4', 'shadcn/ui'] },

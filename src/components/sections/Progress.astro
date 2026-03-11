@@ -3,10 +3,10 @@ import SectionLabel from '../ui/SectionLabel.astro';
 import FeatureVelocity from '../svg/FeatureVelocity.astro';
 
 const stats = [
-  { value: 18, label: 'Features' },
-  { value: 7, label: 'Sprints' },
-  { value: 6, label: 'DB Tables' },
-  { value: 3, label: 'Workflow Patterns' },
+  { value: 21, label: 'Features' },
+  { value: 20, label: 'K LOC' },
+  { value: 8, label: 'DB Tables' },
+  { value: 132, label: 'Tests' },
 ];
 ---
 <section class="py-24 px-6">
@@ -33,7 +33,7 @@ const stats = [
 
     <!-- Feature Velocity Chart -->
     <div data-animate>
-      <h3 class="text-center text-lg font-semibold mb-8">Feature velocity by sprint</h3>
+      <h3 class="text-center text-lg font-semibold mb-8">Feature velocity by day</h3>
       <FeatureVelocity />
     </div>
   </div>
