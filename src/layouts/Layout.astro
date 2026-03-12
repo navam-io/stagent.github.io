@@ -78,14 +78,15 @@ const jsonLdSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- App icons -->
+    <link rel="icon" type="image/png" sizes="64x64" href="/stagent-s-64.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="/apple-touch-icon.png" />
 
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json" />
 
     <!-- Preload fonts -->
-    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="theme-color" content="#0f172a" />
 
     <!-- JSON-LD Structured Data -->
     {jsonLdSchemas.map((schema) => (

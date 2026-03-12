@@ -3,9 +3,9 @@ export const SITE = {
   url: 'https://stagent.io',
   description:
     'AI agent operations workspace with governed execution, reusable profiles, workflow blueprints, schedules, and local-first oversight.',
-  logo: 'https://stagent.io/favicon.svg',
+  logo: 'https://stagent.io/stagent-s-128.png',
   ogImage: 'https://stagent.io/og-image.png',
-  themeColor: '#1a1a2e',
+  themeColor: '#0f172a',
   license: 'Apache-2.0',
 };
 
