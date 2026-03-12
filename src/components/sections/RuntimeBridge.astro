@@ -1,0 +1,536 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+
+const sharedOutcomes = [
+  'Project-scoped execution',
+  'Profiles + runtime overrides',
+  'Workflow steps + schedules',
+  'Inbox approvals + monitoring',
+  'Budget guardrails + cost ledger',
+  'Document context + outputs',
+];
+
+const featureRows = [
+  {
+    claude: 'Tools + permissions',
+    openai: 'Approvals + dynamic tools',
+    stagent: 'Unified inbox approvals',
+    description:
+      'Tool requests, user questions, and operator decisions land in one governed queue instead of splitting by provider.',
+  },
+  {
+    claude: 'Sessions + project files',
+    openai: 'Threads + conversation history',
+    stagent: 'Resume with project context',
+    description:
+      'Tasks keep working directories, document context, and resumable runtime state so operators can restart work without losing the trail.',
+  },
+  {
+    claude: 'MCP servers',
+    openai: 'Auth + tool routing',
+    stagent: 'Profile-backed runtime policy',
+    description:
+      'Reusable profiles carry instructions, allowed tools, MCP configuration, and runtime-specific overrides across both stacks.',
+  },
+  {
+    claude: 'Streaming execution events',
+    openai: 'Streamed agent events',
+    stagent: 'One monitor surface',
+    description:
+      'Provider-labeled logs, task state, and approval history stay visible in a shared operational view.',
+  },
+  {
+    claude: 'Usage snapshots',
+    openai: 'Usage + approval events',
+    stagent: 'Cross-runtime cost ledger',
+    description:
+      'Spend, token velocity, runtime share, and model concentration are tracked together so teams can compare real operator cost.',
+  },
+];
+
+const launchedCapabilities = [
+  'Shared provider runtime abstraction for tasks, schedules, workflows, task assist, and health checks.',
+  'OpenAI Codex App Server runtime with resumable threads, inbox approvals, monitoring, and provider-aware settings.',
+  'Cross-provider profile compatibility with runtime declarations and provider-specific overrides.',
+  'Usage metering ledger, spend guardrails, and a dedicated cross-runtime cost dashboard.',
+];
+
+const roadmapNext = [
+  'Parallel and advanced workflow patterns for higher-throughput orchestration.',
+  'Multi-agent swarm execution for coordinated worker/refinery flows.',
+  'Agent self-improvement loops with explicit human approval.',
+  'Tauri desktop packaging for a native operator shell.',
+];
+---
+<section class="runtime-bridge relative overflow-hidden py-24 px-6 bg-surface-raised">
+  <div class="runtime-bridge__glow runtime-bridge__glow--left" aria-hidden="true"></div>
+  <div class="runtime-bridge__glow runtime-bridge__glow--right" aria-hidden="true"></div>
+
+  <div class="relative max-w-6xl mx-auto">
+    <div class="text-center max-w-4xl mx-auto mb-14">
+      <SectionLabel text="Platforms" />
+      <h2 data-animate class="mt-4 flex flex-col items-center gap-1">
+        <span class="whitespace-nowrap">Already shipping on Claude or Codex?</span>
+        <span class="whitespace-nowrap">Keep the runtime. Add the ops layer.</span>
+      </h2>
+      <p data-animate class="text-text-muted mt-4 max-w-3xl mx-auto" style="transition-delay: 100ms">
+        Claude Agent SDK and Codex App Server already provide state-of-the-art agent primitives. Stagent turns both into one governed execution surface for projects, profiles, workflows, schedules, approvals, monitoring, and cross-runtime spend visibility.
+      </p>
+      <p
+        data-animate
+        class="font-mono text-xs tracking-[0.16em] uppercase text-text-muted/90 mt-6"
+        style="transition-delay: 180ms"
+      >
+        No migration tax. No single-provider bet. One operating model for both.
+      </p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-[1fr_auto_1fr] items-center mb-10">
+      <div data-animate class="runtime-brand runtime-brand--anthropic" style="transition-delay: 220ms">
+        <div class="runtime-brand__logo runtime-brand__logo--anthropic" aria-hidden="true">
+          <img
+            src="/logos/anthropic-white.svg"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div>
+          <p class="runtime-brand__title">Claude Agent SDK</p>
+          <p class="runtime-brand__copy">Tools, permissions, MCP, sessions, and project-aware execution.</p>
+        </div>
+      </div>
+
+      <div data-animate class="runtime-brand__bridge" style="transition-delay: 280ms" aria-hidden="true">
+        <span></span>
+        <div>Shared runtime layer</div>
+        <span></span>
+      </div>
+
+      <div data-animate class="runtime-brand runtime-brand--openai" style="transition-delay: 340ms">
+        <div class="runtime-brand__logo runtime-brand__logo--openai" aria-hidden="true">
+          <img
+            src="/logos/openai-white.svg"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div>
+          <p class="runtime-brand__title">Codex App Server</p>
+          <p class="runtime-brand__copy">Authentication, approvals, threads, event streams, and dynamic tool calls.</p>
+        </div>
+      </div>
+    </div>
+
+    <div data-animate-stagger class="flex flex-wrap justify-center gap-3 mb-12">
+      {sharedOutcomes.map((outcome) => (
+        <span
+          data-animate
+          class="shared-outcome font-mono text-[0.68rem] tracking-[0.16em] uppercase text-text-muted"
+        >
+          {outcome}
+        </span>
+      ))}
+    </div>
+
+    <figure data-animate class="runtime-shot img-reveal" style="transition-delay: 360ms">
+      <div class="runtime-shot__frame">
+        <img
+          src="/screenshots/cost-codex-claude-code.png"
+          alt="Stagent cost dashboard showing spend velocity, token velocity, runtime breakdown, and model breakdown across Claude Code and OpenAI Codex App Server"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-auto block"
+        />
+      </div>
+    </figure>
+
+    <div data-animate class="feature-map" style="transition-delay: 440ms">
+        <div class="feature-map__header">
+          <p class="feature-map__label">Feature map</p>
+          <p class="feature-map__intro">
+            Stagent does not replace either runtime. It standardizes how teams route, supervise, and measure work across both.
+          </p>
+        </div>
+
+        <div class="feature-map__rows">
+          {featureRows.map((row, index) => (
+            <article class="feature-row" data-animate style={`transition-delay: ${420 + index * 90}ms`}>
+              <div class="feature-row__platform feature-row__platform--anthropic">
+                <p class="feature-row__vendor">Claude</p>
+                <p class="feature-row__value">{row.claude}</p>
+              </div>
+
+              <div class="feature-row__center">
+                <div class="feature-row__node" aria-hidden="true"></div>
+                <div>
+                  <h3 class="feature-row__title">{row.stagent}</h3>
+                  <p class="feature-row__description">{row.description}</p>
+                </div>
+              </div>
+
+              <div class="feature-row__platform feature-row__platform--openai">
+                <p class="feature-row__vendor">Codex</p>
+                <p class="feature-row__value">{row.openai}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-2 mt-10">
+      <article data-animate class="status-panel" style="transition-delay: 560ms">
+        <p class="status-panel__label">Launched in Stagent</p>
+        <ul class="status-panel__list">
+          {launchedCapabilities.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+
+      <article data-animate class="status-panel status-panel--roadmap" style="transition-delay: 620ms">
+        <p class="status-panel__label">Roadmap next</p>
+        <ul class="status-panel__list">
+          {roadmapNext.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .runtime-bridge__glow {
+    position: absolute;
+    width: 28rem;
+    height: 28rem;
+    border-radius: 999px;
+    filter: blur(110px);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  .runtime-bridge__glow--left {
+    top: -8rem;
+    left: -8rem;
+    background: color-mix(in oklab, var(--color-primary) 75%, transparent);
+  }
+
+  .runtime-bridge__glow--right {
+    right: -10rem;
+    bottom: -12rem;
+    background: color-mix(in oklab, var(--color-success) 78%, transparent);
+  }
+
+  .runtime-brand {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.1rem 1.15rem;
+    border: 1px solid color-mix(in oklab, var(--color-border) 85%, transparent);
+    border-radius: 1.2rem;
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-surface-overlay) 70%, transparent), color-mix(in oklab, var(--color-surface) 88%, transparent)),
+      linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 10%, transparent), transparent 58%);
+    box-shadow: 0 24px 50px color-mix(in oklab, var(--color-surface) 84%, transparent);
+  }
+
+  .runtime-brand--openai {
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-surface-overlay) 70%, transparent), color-mix(in oklab, var(--color-surface) 88%, transparent)),
+      linear-gradient(135deg, color-mix(in oklab, var(--color-success) 10%, transparent), transparent 58%);
+  }
+
+  .runtime-brand__logo {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    color: var(--color-text);
+  }
+
+  .runtime-brand__logo svg,
+  .runtime-brand__logo img {
+    display: block;
+    width: auto;
+    height: 1rem;
+    max-width: 100%;
+  }
+
+  .runtime-brand__logo--anthropic img,
+  .runtime-brand__logo--anthropic svg {
+    height: 0.85rem;
+  }
+
+  .runtime-brand__logo--openai svg,
+  .runtime-brand__logo--openai img {
+    height: 1.65rem;
+  }
+
+  .runtime-brand__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.45rem;
+  }
+
+  .runtime-brand__copy {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .runtime-brand__bridge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+    min-width: 8rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .runtime-brand__bridge span {
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  }
+
+  .shared-outcome {
+    padding: 0.8rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, var(--color-border) 82%, transparent);
+    background: color-mix(in oklab, var(--color-surface) 72%, transparent);
+  }
+
+  .feature-map {
+    border: 1px solid color-mix(in oklab, var(--color-border) 82%, transparent);
+    border-radius: 1.5rem;
+    padding: 1.4rem;
+    background:
+      radial-gradient(circle at top left, color-mix(in oklab, var(--color-primary) 11%, transparent), transparent 35%),
+      color-mix(in oklab, var(--color-surface) 86%, transparent);
+    box-shadow: 0 28px 60px color-mix(in oklab, var(--color-surface) 86%, transparent);
+  }
+
+  .runtime-shot + .feature-map {
+    margin-top: 2rem;
+  }
+
+  .feature-map__header {
+    margin-bottom: 1.2rem;
+  }
+
+  .feature-map__label {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-map__intro {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 42rem;
+  }
+
+  .feature-map__rows {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.24fr) minmax(0, 0.88fr);
+    gap: 0.85rem;
+    align-items: center;
+  }
+
+  .feature-row__platform,
+  .feature-row__center {
+    position: relative;
+    border: 1px solid color-mix(in oklab, var(--color-border) 82%, transparent);
+    border-radius: 1.15rem;
+    min-height: 100%;
+  }
+
+  .feature-row__platform {
+    padding: 0.85rem 0.9rem;
+    background: color-mix(in oklab, var(--color-surface-raised) 70%, transparent);
+  }
+
+  .feature-row__center {
+    padding: 1rem 1rem 1rem 1.15rem;
+    background:
+      linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 10%, transparent), transparent 55%),
+      color-mix(in oklab, var(--color-surface-overlay) 55%, transparent);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: start;
+  }
+
+  .feature-row__center::before,
+  .feature-row__center::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 0.85rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-border), transparent);
+  }
+
+  .feature-row__center::before {
+    left: -0.86rem;
+  }
+
+  .feature-row__center::after {
+    right: -0.86rem;
+    transform: scaleX(-1);
+  }
+
+  .feature-row__vendor {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 0.32rem;
+  }
+
+  .feature-row__value {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--color-text);
+  }
+
+  .feature-row__node {
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-top: 0.35rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-success));
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-primary) 10%, transparent);
+  }
+
+  .feature-row__title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin-bottom: 0.28rem;
+  }
+
+  .feature-row__description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .runtime-shot {
+    margin: 0;
+  }
+
+  .runtime-shot__frame {
+    overflow: hidden;
+    border-radius: 1.6rem;
+    border: 1px solid color-mix(in oklab, var(--color-border) 82%, transparent);
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-surface-overlay) 75%, transparent), color-mix(in oklab, var(--color-surface) 88%, transparent));
+    box-shadow: 0 32px 70px color-mix(in oklab, var(--color-surface) 84%, transparent);
+  }
+
+  .runtime-shot__caption {
+    margin-top: 0.9rem;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .status-panel {
+    border: 1px solid color-mix(in oklab, var(--color-border) 82%, transparent);
+    border-radius: 1.25rem;
+    padding: 1.15rem 1.2rem;
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-surface-overlay) 60%, transparent), color-mix(in oklab, var(--color-surface) 88%, transparent)),
+      linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 10%, transparent), transparent 60%);
+  }
+
+  .status-panel--roadmap {
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-surface-overlay) 60%, transparent), color-mix(in oklab, var(--color-surface) 88%, transparent)),
+      linear-gradient(135deg, color-mix(in oklab, var(--color-success) 10%, transparent), transparent 60%);
+  }
+
+  .status-panel__label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .status-panel--roadmap .status-panel__label {
+    color: var(--color-success);
+  }
+
+  .status-panel__list {
+    display: grid;
+    gap: 0.75rem;
+    color: var(--color-text-muted);
+    padding-left: 1.1rem;
+  }
+
+  .status-panel__list li::marker {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 1100px) {
+    .feature-row {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-row__center::before,
+    .feature-row__center::after,
+    .runtime-brand__bridge {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .feature-map {
+      padding: 1rem;
+    }
+
+    .runtime-shot + .feature-map {
+      margin-top: 1.25rem;
+    }
+
+    .runtime-brand {
+      padding: 1rem;
+    }
+
+    .runtime-brand__logo svg,
+    .runtime-brand__logo img {
+      height: 0.9rem;
+    }
+
+    .runtime-brand__logo--anthropic img,
+    .runtime-brand__logo--anthropic svg {
+      height: 0.75rem;
+    }
+
+    .runtime-brand__logo--openai svg,
+    .runtime-brand__logo--openai img {
+      height: 1.35rem;
+    }
+  }
+</style>

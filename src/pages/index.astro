@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/sections/Hero.astro';
+import RuntimeBridge from '../components/sections/RuntimeBridge.astro';
 import ProductOverview from '../components/sections/ProductOverview.astro';
 import Features from '../components/sections/Features.astro';
 import Architecture from '../components/sections/Architecture.astro';
@@ -76,7 +77,7 @@ const jsonLd = [
         name: 'What technology stack does Stagent use?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Stagent is built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, shadcn/ui, SQLite via Drizzle ORM, and the Claude Agent SDK for AI integration.',
+          text: 'Stagent is built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, shadcn/ui, SQLite via Drizzle ORM, and governed runtime integrations for both the Claude Agent SDK and OpenAI Codex App Server.',
         },
       },
       {
@@ -95,6 +96,7 @@ const jsonLd = [
   <Nav />
   <main>
     <Hero />
+    <RuntimeBridge />
     <ProductOverview />
     <Features />
     <Architecture />
