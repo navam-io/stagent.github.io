@@ -52,14 +52,35 @@ import BrowserFrame from '../ui/BrowserFrame.astro';
       class="font-mono text-xs tracking-[0.28em] uppercase text-primary mb-5"
       style="transition-delay: 260ms"
     >
-      Run Stagent from source
+      Get started
     </p>
 
-    <!-- Clone instructions -->
-    <div data-animate class="mb-10 max-w-xl mx-auto" style="transition-delay: 300ms">
-      <pre class="rounded-md border border-border bg-surface-raised px-6 py-4 text-left font-mono text-sm leading-relaxed text-text-muted overflow-x-auto"><code>git clone https://github.com/navam-io/stagent.git
+    <!-- Side-by-side CTAs -->
+    <div data-animate class="mb-10 max-w-3xl mx-auto flex flex-col sm:flex-row gap-4" style="transition-delay: 300ms">
+      <!-- Left card — Download Mac App -->
+      <div class="flex-1 border border-border rounded-md px-6 py-4 flex flex-col items-center justify-center text-center">
+        <span class="font-mono text-xs uppercase tracking-widest text-text-muted mb-4">macOS Desktop App</span>
+        <a
+          href="https://github.com/navam-io/stagent/releases/latest/download/Stagent.dmg"
+          class="inline-flex items-center gap-2 bg-primary text-surface font-mono text-sm tracking-widest uppercase px-6 py-3 rounded-md hover:opacity-90 transition-opacity mb-3"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download
+        </a>
+        <span class="font-mono text-xs text-text-muted opacity-60">Latest release · DMG</span>
+      </div>
+
+      <!-- Right card — Run from Source -->
+      <div class="flex-1 border border-border rounded-md px-6 py-4 flex flex-col justify-center">
+        <span class="font-mono text-xs uppercase tracking-widest text-text-muted mb-4 text-center">Run from Source</span>
+        <pre class="rounded-md bg-surface-raised px-4 py-3 text-left font-mono text-sm leading-relaxed text-text-muted overflow-x-auto"><code>git clone https://github.com/navam-io/stagent.git
 cd stagent && npm install
 npm run dev</code></pre>
+      </div>
     </div>
 
     <div data-animate class="mb-16" style="transition-delay: 340ms">
