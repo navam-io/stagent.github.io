@@ -181,10 +181,10 @@ const roadmapNext = [
         </div>
     </div>
 
-    <div class="grid gap-4 lg:grid-cols-2 mt-10">
+    <div class="grid gap-4 mt-10">
       <article data-animate class="status-panel" style="transition-delay: 560ms">
         <p class="status-panel__label">Launched in Stagent</p>
-        <ul class="status-panel__list">
+        <ul class="status-panel__list status-panel__list--2col">
           {launchedCapabilities.map(({ icon, text }) => (
             <li class="status-panel__item">
               <svg class="status-panel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -198,7 +198,7 @@ const roadmapNext = [
 
       <article data-animate class="status-panel status-panel--roadmap" style="transition-delay: 620ms">
         <p class="status-panel__label">Roadmap next</p>
-        <ul class="status-panel__list">
+        <ul class="status-panel__list status-panel__list--2col">
           {roadmapNext.map(({ icon, text }) => (
             <li class="status-panel__item">
               <svg class="status-panel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -500,6 +500,12 @@ const roadmapNext = [
     color: var(--color-text-muted);
     padding-left: 0;
     list-style: none;
+  }
+
+  @media (min-width: 640px) {
+    .status-panel__list--2col {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .status-panel__item {
