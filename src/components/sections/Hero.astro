@@ -332,14 +332,22 @@ const slides = [
       dot.addEventListener('click', () => jumpToSlide(i));
     });
 
-    // ── Hover: zoom in on enter, zoom out on leave ──
+    // ── Hover: zoom-pulse (zoom in, auto-zoom-out after 300ms) ──
+    let zoomTimeout: ReturnType<typeof setTimeout> | null = null;
     carousel?.addEventListener('mouseenter', () => {
       isPaused = true;
       const active = slides[currentIndex];
-      if (active && !isTransitioning) active.classList.add('zoomed');
+      if (active && !isTransitioning) {
+        active.classList.add('zoomed');
+        zoomTimeout = setTimeout(() => {
+          active.classList.remove('zoomed');
+          zoomTimeout = null;
+        }, 1800);
+      }
     });
     carousel?.addEventListener('mouseleave', () => {
       isPaused = false;
+      if (zoomTimeout) { clearTimeout(zoomTimeout); zoomTimeout = null; }
       const active = slides[currentIndex];
       if (active) active.classList.remove('zoomed');
       // Resume autoplay

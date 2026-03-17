@@ -147,5 +147,27 @@ const jsonLdSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       // Re-init after Astro view transitions
       document.addEventListener('astro:after-swap', initScrollReveal);
     </script>
+
+    <!-- Image hover zoom-pulse: zoom in then auto-zoom-out after 300ms -->
+    <script>
+      function initImgZoom() {
+        document.querySelectorAll('main img').forEach((img) => {
+          let timeout: ReturnType<typeof setTimeout> | null = null;
+          img.addEventListener('mouseenter', () => {
+            img.classList.add('img-zoomed');
+            timeout = setTimeout(() => {
+              img.classList.remove('img-zoomed');
+              timeout = null;
+            }, 1800);
+          });
+          img.addEventListener('mouseleave', () => {
+            if (timeout) { clearTimeout(timeout); timeout = null; }
+            img.classList.remove('img-zoomed');
+          });
+        });
+      }
+      initImgZoom();
+      document.addEventListener('astro:after-swap', initImgZoom);
+    </script>
   </body>
 </html>
