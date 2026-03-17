@@ -16,6 +16,8 @@ export interface TimelineItem {
   techCategories: TechCategory[];
   status: ProjectStatus;
   isCurrent: boolean;
+  accentToken: string;
+  domainIcon: string;
 }
 
 export const metrics = [
@@ -46,6 +48,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-green',
+    domainIcon: 'chart-line',
   },
   {
     year: '2024',
@@ -67,6 +71,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-orange',
+    domainIcon: 'users',
   },
   {
     year: '2025',
@@ -88,6 +94,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-purple',
+    domainIcon: 'network',
   },
   {
     year: '2025',
@@ -109,6 +117,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-teal',
+    domainIcon: 'puzzle',
   },
   {
     year: '2025',
@@ -129,6 +139,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-pink',
+    domainIcon: 'layout',
   },
   {
     year: '2025',
@@ -150,6 +162,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-blue',
+    domainIcon: 'search',
   },
   {
     year: '2025',
@@ -170,6 +184,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-cyan',
+    domainIcon: 'globe',
   },
   {
     year: '2025',
@@ -190,6 +206,8 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'completed',
     isCurrent: false,
+    accentToken: '--svg-accent-red',
+    domainIcon: 'terminal',
   },
   {
     year: '2026',
@@ -212,5 +230,7 @@ export const timeline: TimelineItem[] = [
     ],
     status: 'active',
     isCurrent: true,
+    accentToken: '--color-primary',
+    domainIcon: 'shield',
   },
 ];
