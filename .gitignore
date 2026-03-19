@@ -7,6 +7,7 @@ supabase/.temp/
 .agents/
 .playwright-mcp/
 output/
+/deck/
 .claude/settings.local.json
 .claude/skills/apply-product-release/
 .claude/skills/skill-creator/
