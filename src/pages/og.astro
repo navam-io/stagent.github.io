@@ -2,6 +2,10 @@
 /**
  * OG Image page — rendered at 1200×630 then screenshotted to public/og-image.png
  * Standalone page with no layout wrapper, fixed dimensions, no overflow.
+ *
+ * Design: "Command Center" split layout
+ *   Left  — Brand identity: wordmark, subtitle, tagline, value pills, stats
+ *   Right — Abstract operational dashboard: status counters, kanban cards, workflow dots
  */
 import "@fontsource/geist-sans/700.css";
 import "@fontsource-variable/geist-mono";
@@ -19,103 +23,282 @@ import "@fontsource-variable/geist-mono";
       width: 1200px;
       height: 630px;
       overflow: hidden;
-      background: oklch(0.13 0.02 250);
+      background: oklch(0.18 0.025 250);
       color: oklch(0.93 0.01 250);
     }
 
-    .og-container {
+    /* ── Layout ── */
+    .og {
       position: relative;
       width: 1200px;
       height: 630px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
 
-    /* ── Background glow ── */
-    .glow {
-      position: absolute;
-      top: 50%;
-      right: 180px;
-      transform: translateY(-50%);
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, oklch(0.65 0.18 250 / 0.15) 0%, transparent 70%);
-      z-index: 0;
+    /* ── Left panel: Brand ── */
+    .brand {
+      padding: 52px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid oklch(0.3 0.025 250);
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── Wordmark ── */
     .wordmark {
-      position: absolute;
-      top: 72px;
-      left: 72px;
-      z-index: 3;
       font-family: "Geist Mono Variable", monospace;
-      font-size: 120px;
+      font-size: 54px;
       font-weight: 400;
       letter-spacing: 0.18em;
-      color: oklch(0.65 0.18 250);
+      color: oklch(0.72 0.2 250);
       line-height: 1;
     }
 
-    /* ── Content ── */
-    .center-content {
-      position: absolute;
-      left: 72px;
-      top: 240px;
-      z-index: 2;
-      text-align: left;
+    .subtitle {
+      font-family: "Geist Mono Variable", monospace;
+      font-size: 12.5px;
+      letter-spacing: 0.12em;
+      color: oklch(0.52 0.03 250);
+      margin-top: 10px;
     }
 
     .tagline {
       font-family: "Geist Sans", system-ui, sans-serif;
-      font-size: 34px;
+      font-size: 27px;
       font-weight: 700;
-      line-height: 1.3;
-      color: oklch(0.85 0.01 250);
-      margin-bottom: 32px;
-      max-width: 540px;
+      line-height: 1.32;
+      color: oklch(0.93 0.01 250);
+      margin-bottom: 24px;
     }
 
     .pills {
       display: flex;
-      gap: 16px;
-      justify-content: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .pill {
       font-family: "Geist Mono Variable", monospace;
-      font-size: 15px;
+      font-size: 12px;
       letter-spacing: 0.04em;
-      color: oklch(0.65 0.18 250);
-      border: 1.5px solid oklch(0.65 0.18 250 / 0.4);
-      border-radius: 8px;
-      padding: 8px 20px;
-      background: oklch(0.65 0.18 250 / 0.06);
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1.5px solid oklch(0.72 0.2 250 / 0.45);
+      color: oklch(0.72 0.2 250);
+      background: oklch(0.72 0.2 250 / 0.07);
     }
 
-    .pill.success {
-      color: oklch(0.65 0.15 170);
-      border-color: oklch(0.65 0.15 170 / 0.4);
-      background: oklch(0.65 0.15 170 / 0.06);
+    .pill--teal {
+      border-color: oklch(0.72 0.17 170 / 0.55);
+      color: oklch(0.72 0.17 170);
+      background: oklch(0.72 0.17 170 / 0.09);
     }
 
-    /* ── Governance Flow SVG ── */
-    .governance-flow {
+    .stats {
+      display: flex;
+      gap: 36px;
+    }
+
+    .stat-value {
+      font-family: "Geist Mono Variable", monospace;
+      font-size: 30px;
+      font-weight: 700;
+      color: oklch(0.72 0.2 250);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: "Geist Mono Variable", monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: oklch(0.52 0.03 250);
+      margin-top: 4px;
+    }
+
+    /* ── Right panel: Dashboard ── */
+    .dashboard {
+      padding: 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    /* Ambient glow */
+    .dashboard::before {
+      content: "";
       position: absolute;
-      right: 48px;
-      top: 220px;
+      top: 30%;
+      right: 0;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, oklch(0.65 0.2 250 / 0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ── Status counters ── */
+    .counters {
+      display: flex;
+      gap: 14px;
+      position: relative;
       z-index: 1;
     }
 
-    /* ── URL ── */
-    .url {
-      position: absolute;
-      bottom: 36px;
-      right: 48px;
-      z-index: 3;
+    .counter {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      background: oklch(0.22 0.025 250);
+      border-radius: 10px;
+      border: 1px solid oklch(0.3 0.025 250);
+    }
+
+    .counter--active {
+      border-color: oklch(0.72 0.17 170 / 0.45);
+    }
+
+    .counter-label {
       font-family: "Geist Mono Variable", monospace;
-      font-size: 28px;
-      letter-spacing: 0.08em;
-      color: oklch(0.65 0.18 250 / 0.6);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: oklch(0.52 0.03 250);
+    }
+
+    .counter--active .counter-label {
+      color: oklch(0.72 0.17 170);
+    }
+
+    .counter-value {
+      font-family: "Geist Mono Variable", monospace;
+      font-size: 26px;
+      color: oklch(0.72 0.2 250);
+      margin-top: 3px;
+    }
+
+    .counter--active .counter-value {
+      color: oklch(0.72 0.17 170);
+    }
+
+    /* ── Kanban columns ── */
+    .kanban {
+      display: flex;
+      gap: 12px;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kanban-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Abstract card */
+    .card {
+      background: oklch(0.24 0.025 250);
+      border: 1px solid oklch(0.32 0.03 250);
+      border-radius: 9px;
+      padding: 16px;
+      border-left: 3px solid oklch(0.72 0.2 250);
+    }
+
+    .card--running {
+      border-color: oklch(0.72 0.17 170 / 0.4);
+      border-left-color: oklch(0.72 0.17 170);
+    }
+
+    .card--done {
+      background: oklch(0.22 0.025 250);
+      border-color: oklch(0.28 0.025 250);
+      border-left-color: transparent;
+    }
+
+    /* Placeholder text bars */
+    .bar {
+      border-radius: 3px;
+    }
+
+    .bar--title {
+      height: 7px;
+      background: oklch(0.38 0.03 250);
+      margin-bottom: 9px;
+    }
+
+    .bar--sub {
+      height: 5px;
+      background: oklch(0.28 0.025 250);
+    }
+
+    /* Progress indicator */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .progress-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: oklch(0.72 0.17 170);
+      flex-shrink: 0;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 5px;
+      background: oklch(0.28 0.025 250);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: oklch(0.72 0.17 170 / 0.7);
+      border-radius: 3px;
+    }
+
+    .progress-fill--done {
+      background: oklch(0.72 0.2 250 / 0.3);
+    }
+
+    /* ── Footer row ── */
+    .dash-footer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pattern-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .pattern-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .dash-footer-text {
+      font-family: "Geist Mono Variable", monospace;
+      font-size: 10px;
+      color: oklch(0.48 0.03 250);
+    }
+
+    .dash-url {
+      margin-left: auto;
+      font-family: "Geist Mono Variable", monospace;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: oklch(0.72 0.2 250 / 0.55);
     }
 
     /* ── Accent line ── */
@@ -125,89 +308,159 @@ import "@fontsource-variable/geist-mono";
       left: 0;
       width: 100%;
       height: 2px;
-      background: linear-gradient(90deg, transparent 5%, oklch(0.65 0.18 250 / 0.25) 30%, oklch(0.65 0.18 250 / 0.5) 50%, oklch(0.65 0.18 250 / 0.25) 70%, transparent 95%);
+      background: linear-gradient(
+        90deg,
+        transparent 5%,
+        oklch(0.72 0.2 250 / 0.25) 30%,
+        oklch(0.72 0.2 250 / 0.55) 50%,
+        oklch(0.72 0.2 250 / 0.25) 70%,
+        transparent 95%
+      );
       z-index: 3;
     }
   </style>
 </head>
 <body>
-  <div class="og-container">
-    <div class="glow"></div>
+  <div class="og">
 
-    <div class="wordmark">STAGENT</div>
+    <!-- ─── LEFT: Brand identity ─── -->
+    <div class="brand">
+      <div>
+        <div class="wordmark">STAGENT</div>
+        <div class="subtitle">AI AGENT OPERATIONS</div>
+      </div>
 
-    <!-- Governance flow — simplified 5-step loop -->
-    <div class="governance-flow">
-      <svg width="520" height="320" viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Step 1: Agent -->
-        <rect x="10" y="10" width="140" height="70" rx="8" fill="oklch(0.19 0.02 250)" stroke="oklch(0.25 0.02 250)" stroke-width="1" />
-        <text x="80" y="38" fill="oklch(0.65 0.18 250)" font-family="'Geist Mono Variable', monospace" font-size="14" text-anchor="middle" font-weight="600">1. AGENT</text>
-        <text x="80" y="58" fill="oklch(0.6 0.02 250)" font-family="'Geist Sans', sans-serif" font-size="13" text-anchor="middle">Requests tool</text>
+      <div>
+        <div class="tagline">Govern your agents.<br/>Operate with oversight.</div>
+        <div class="pills">
+          <span class="pill pill--teal">Human-in-the-Loop</span>
+          <span class="pill">Local-First</span>
+          <span class="pill">Open Source</span>
+        </div>
+      </div>
 
-        <!-- Arrow 1→2 -->
-        <line x1="150" y1="45" x2="185" y2="45" stroke="oklch(0.65 0.18 250)" stroke-width="1.5" stroke-dasharray="6 4" />
-        <circle cx="185" cy="45" r="3" fill="oklch(0.65 0.18 250)" />
-
-        <!-- Step 2: canUseTool -->
-        <rect x="190" y="10" width="140" height="70" rx="8" fill="oklch(0.19 0.02 250)" stroke="oklch(0.65 0.18 250)" stroke-width="1.5" />
-        <text x="260" y="38" fill="oklch(0.65 0.18 250)" font-family="'Geist Mono Variable', monospace" font-size="14" text-anchor="middle" font-weight="600">2. canUseTool</text>
-        <text x="260" y="58" fill="oklch(0.6 0.02 250)" font-family="'Geist Sans', sans-serif" font-size="13" text-anchor="middle">Polls approval</text>
-
-        <!-- Arrow 2→3 -->
-        <line x1="330" y1="45" x2="365" y2="45" stroke="oklch(0.65 0.18 250)" stroke-width="1.5" stroke-dasharray="6 4" />
-        <circle cx="365" cy="45" r="3" fill="oklch(0.65 0.18 250)" />
-
-        <!-- Step 3: Notify -->
-        <rect x="370" y="10" width="140" height="70" rx="8" fill="oklch(0.19 0.02 250)" stroke="oklch(0.25 0.02 250)" stroke-width="1" />
-        <text x="440" y="38" fill="oklch(0.65 0.18 250)" font-family="'Geist Mono Variable', monospace" font-size="14" text-anchor="middle" font-weight="600">3. NOTIFY</text>
-        <text x="440" y="58" fill="oklch(0.6 0.02 250)" font-family="'Geist Sans', sans-serif" font-size="13" text-anchor="middle">Inbox alert</text>
-
-        <!-- Arrow 3→4 (downward) -->
-        <line x1="440" y1="80" x2="440" y2="115" stroke="oklch(0.65 0.15 170)" stroke-width="1.5" stroke-dasharray="6 4" />
-        <circle cx="440" cy="115" r="3" fill="oklch(0.65 0.15 170)" />
-
-        <!-- Step 4: Human (success color) -->
-        <rect x="370" y="120" width="140" height="70" rx="8" fill="oklch(0.19 0.02 250)" stroke="oklch(0.65 0.15 170)" stroke-width="1.5" />
-        <text x="440" y="148" fill="oklch(0.65 0.15 170)" font-family="'Geist Mono Variable', monospace" font-size="14" text-anchor="middle" font-weight="600">4. HUMAN ✓</text>
-        <text x="440" y="168" fill="oklch(0.6 0.02 250)" font-family="'Geist Sans', sans-serif" font-size="13" text-anchor="middle">Reviews &amp; decides</text>
-
-        <!-- Arrow 4→5 (leftward) -->
-        <line x1="370" y1="155" x2="335" y2="155" stroke="oklch(0.65 0.18 250)" stroke-width="1.5" stroke-dasharray="6 4" />
-        <circle cx="335" cy="155" r="3" fill="oklch(0.65 0.18 250)" />
-
-        <!-- Step 5: Execute -->
-        <rect x="190" y="120" width="140" height="70" rx="8" fill="oklch(0.19 0.02 250)" stroke="oklch(0.25 0.02 250)" stroke-width="1" />
-        <text x="260" y="148" fill="oklch(0.65 0.18 250)" font-family="'Geist Mono Variable', monospace" font-size="14" text-anchor="middle" font-weight="600">5. EXECUTE</text>
-        <text x="260" y="168" fill="oklch(0.6 0.02 250)" font-family="'Geist Sans', sans-serif" font-size="13" text-anchor="middle">Tool runs</text>
-
-        <!-- Loop-back arrow (Execute → Agent) -->
-        <path d="M190 155 L80 155 L80 80" stroke="oklch(0.65 0.18 250 / 0.4)" stroke-width="1" stroke-dasharray="4 4" fill="none" />
-        <circle cx="80" cy="80" r="3" fill="oklch(0.65 0.18 250 / 0.4)" />
-
-        <!-- Caption -->
-        <text x="260" y="230" fill="oklch(0.5 0.02 250)" font-family="'Geist Mono Variable', monospace" font-size="12" text-anchor="middle">
-          Human-in-the-loop governance cycle
-        </text>
-
-        <!-- Arrowhead defs -->
-        <defs>
-          <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-            <polygon points="0 0, 8 3, 0 6" fill="oklch(0.65 0.18 250)" />
-          </marker>
-        </defs>
-      </svg>
-    </div>
-
-    <div class="center-content">
-      <div class="tagline">The coordination layer for the agentic enterprise</div>
-      <div class="pills">
-        <span class="pill success">Human-in-the-Loop</span>
-        <span class="pill">Local-First</span>
-        <span class="pill">Open Source</span>
+      <div class="stats">
+        <div>
+          <div class="stat-value">51</div>
+          <div class="stat-label">FEATURES</div>
+        </div>
+        <div>
+          <div class="stat-value">11</div>
+          <div class="stat-label">SURFACES</div>
+        </div>
+        <div>
+          <div class="stat-value">6</div>
+          <div class="stat-label">PATTERNS</div>
+        </div>
       </div>
     </div>
 
-    <div class="url">stagent.io</div>
+    <!-- ─── RIGHT: Abstract dashboard ─── -->
+    <div class="dashboard">
+
+      <!-- Status counters -->
+      <div class="counters">
+        <div class="counter">
+          <div class="counter-label">PLANNED</div>
+          <div class="counter-value">4</div>
+        </div>
+        <div class="counter counter--active">
+          <div class="counter-label">RUNNING</div>
+          <div class="counter-value">2</div>
+        </div>
+        <div class="counter">
+          <div class="counter-label">DONE</div>
+          <div class="counter-value">8</div>
+        </div>
+      </div>
+
+      <!-- Abstract kanban cards -->
+      <div class="kanban">
+
+        <!-- Planned column -->
+        <div class="kanban-col">
+          <div class="card" style="flex:1">
+            <div class="bar bar--title" style="width:72%"></div>
+            <div class="bar bar--sub" style="width:48%"></div>
+          </div>
+          <div class="card" style="flex:1">
+            <div class="bar bar--title" style="width:88%"></div>
+            <div class="bar bar--sub" style="width:38%"></div>
+          </div>
+          <div class="card" style="flex:0.75">
+            <div class="bar bar--title" style="width:58%"></div>
+            <div class="bar bar--sub" style="width:32%"></div>
+          </div>
+        </div>
+
+        <!-- Running column -->
+        <div class="kanban-col">
+          <div class="card card--running" style="flex:1.15">
+            <div class="bar bar--title" style="width:78%"></div>
+            <div class="progress-row">
+              <div class="progress-dot"></div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:58%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card card--running" style="flex:1">
+            <div class="bar bar--title" style="width:64%"></div>
+            <div class="progress-row">
+              <div class="progress-dot"></div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:28%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Done column -->
+        <div class="kanban-col">
+          <div class="card card--done" style="flex:1;opacity:0.65">
+            <div class="bar bar--title" style="width:82%"></div>
+            <div class="progress-row">
+              <div class="progress-track">
+                <div class="progress-fill progress-fill--done" style="width:100%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card card--done" style="flex:0.9;opacity:0.55">
+            <div class="bar bar--title" style="width:56%"></div>
+            <div class="progress-row">
+              <div class="progress-track">
+                <div class="progress-fill progress-fill--done" style="width:100%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card card--done" style="flex:0.7;opacity:0.45">
+            <div class="bar bar--title" style="width:68%"></div>
+            <div class="progress-row">
+              <div class="progress-track">
+                <div class="progress-fill progress-fill--done" style="width:100%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Workflow pattern dots + URL -->
+      <div class="dash-footer">
+        <div class="pattern-dots">
+          <div class="pattern-dot" style="background:oklch(0.72 0.2 250)"></div>
+          <div class="pattern-dot" style="background:oklch(0.72 0.17 170)"></div>
+          <div class="pattern-dot" style="background:oklch(0.75 0.17 75)"></div>
+          <div class="pattern-dot" style="background:oklch(0.75 0.17 340)"></div>
+          <div class="pattern-dot" style="background:oklch(0.65 0.17 300)"></div>
+          <div class="pattern-dot" style="background:oklch(0.75 0.17 195)"></div>
+        </div>
+        <span class="dash-footer-text">6 workflow patterns</span>
+        <span class="dash-url">stagent.io</span>
+      </div>
+
+    </div>
+
     <div class="accent-line"></div>
   </div>
 </body>
